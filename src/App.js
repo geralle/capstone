@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import Calendar from './components/Calendar'
 import About from './components/About'
+import LoginCreate from './components/LoginCreate'
 
 class App extends Component {
   render() {
@@ -17,7 +18,10 @@ class App extends Component {
         </header>
         <div className="main-container">
           <Calendar />
-          <About />
+          <div className="about-logins">
+            <About />
+            <LoginCreate/>
+          </div>
         </div>
       </div>
     );
