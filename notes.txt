@@ -1,0 +1,12 @@
+Dog walker
+Barber
+Tattoo Artist
+
+One of the slides shows 3 different profiles
+
+small business scheduling App
+
+
+SKjewel
+
+Each day will be divs according to the days time slots
