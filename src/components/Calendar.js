@@ -4,8 +4,9 @@ class Calendar extends Component {
   constructor(){
     super()
     this.state = {
-      month: '',
-      year: '',
+      month: 0,
+      monthName: '',
+      year: 0,
       monthObj: {}
     }
   }
@@ -14,10 +15,6 @@ class Calendar extends Component {
     var currentDate = new Date()
     var month = currentDate.getMonth() +1
     var year = currentDate.getFullYear()
-    var calendarContainer = document.getElementsByClassName('calendar-container')[0]
-    var previousMonth = document.getElementsByClassName('previous-month')[0]
-    var nextMonth = document.getElementsByClassName('next-month')[0]
-    var calendarWeek = document.getElementsByClassName('.calendar-week')[0]
     this.daysInMonth(month, year)
   }
 
@@ -114,16 +111,17 @@ class Calendar extends Component {
         year: year
       }
     }
-    this.createMonthCalendar(selectedMonth)
+
     this.setState({
-      month: monthName,
+      month: month,
       year: year,
-      monthObj: selectedMonth
+      monthObj: selectedMonth,
+      monthName: monthName
     })
+    this.createMonthCalendar(selectedMonth)
   }
 
   createMonthCalendar(selectedMonth){
-    console.log(selectedMonth)
     var calendarMonth = document.getElementsByClassName('calendar-month')[0]
     var selectedMonthLength = Object.keys(selectedMonth).length
     var rowCounter=1
@@ -164,6 +162,7 @@ class Calendar extends Component {
     var calendarMonth = document.getElementsByClassName('calendar-month')[0]
     var month = this.state.month
     var year = this.state.year
+
     month--
     if(month===0){
       month=12
@@ -173,17 +172,31 @@ class Calendar extends Component {
     this.daysInMonth(month, year)
   }
 
+  nextMonth(){
+    var calendarMonth = document.getElementsByClassName('calendar-month')[0]
+    var month = this.state.month
+    var year = this.state.year
+
+    month++
+    if(month===13){
+      month=1
+      year++
+    }
+    calendarMonth.innerHTML = ''
+    this.daysInMonth(month, year)
+  }
+
   render() {
     return (
       <div className="calendar-container">
         <div className="calendar-title">
-          <h3>Calendar</h3>
+          <h3>{this.state.monthName}</h3>
         </div>
         <div>
           <button className="btn previous-month" onClick={()=>this.previousMonth()}>
             <i className="fa fa-angle-left"></i>
           </button>
-          <button className="btn next-month" >
+          <button className="btn next-month" onClick={()=>this.nextMonth()}>
             <i className="fa fa-angle-right"></i>
           </button>
           <button className="display-week" >Week</button>
