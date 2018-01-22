@@ -54,7 +54,7 @@ body {
   margin: 20px 0 0 0;
 }
 
-.calendar-container, .about-logins{
+.calendar, .about-logins{
   width: 50%;
   border: 2px solid purple;
 }
@@ -64,6 +64,15 @@ body {
   justify-content: center;
   margin: 10px;
   border: 2px solid green;
+}
+
+.calendar-container{
+  border: 2px solid red;
+  width: 100%;
+}
+
+td{
+  height: 70px;
 }
 
 .about-logins{

@@ -111,7 +111,6 @@ class Calendar extends Component {
         year: year
       }
     }
-
     this.setState({
       month: month,
       year: year,
@@ -188,7 +187,7 @@ class Calendar extends Component {
 
   render() {
     return (
-      <div className="calendar-container">
+      <div className="calendar">
         <div className="calendar-title">
           <h3>{this.state.monthName}</h3>
         </div>
