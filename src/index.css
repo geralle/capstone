@@ -43,6 +43,11 @@ body {
   margin: 0 0 0 10px;
 }
 
+.admin-login-btn{
+  height: 40px;
+  margin: 0 0 0 10px;
+}
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
