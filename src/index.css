@@ -132,3 +132,11 @@ td{
 .create-account-btn{
   margin: 0 0 0 10px;
 }
+
+#authorize-button{
+  display: none;
+}
+
+#signout-button{
+  display: none;
+}
