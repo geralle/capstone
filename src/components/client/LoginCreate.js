@@ -4,7 +4,7 @@ class LoginCreate extends Component {
   render() {
     return (
       <div className="login-container">
-        <form className="login-form" method="post" action="http://localhost:8000/login">
+        <form className="login-form" method="post" action="">
           <h3>Login</h3>
           <div className="form-group login-input">
             <input type="text" className="form-control" name="username" placeholder="Username"></input>

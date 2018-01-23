@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link, Switch, Route } from 'react-router-dom'
 import logo from '../logo.svg';
-import Admin from '../components/Admin'
+import Admin from '../components/admin/Admin'
 
 class Header extends Component {
   render() {

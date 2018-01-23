@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import AdminDashboard from '../components/AdminDashboard'
+import AdminDashboard from './AdminDashboard'
 
 class Admin extends Component {
   constructor(){
     super()
     this.state = {
       gapi: '',
-      signedIn: ''
+      signedIn: '',
+      events: []
     }
   }
 
@@ -22,16 +23,13 @@ class Admin extends Component {
   }
 
   async initClient(){
-    var CLIENT_ID = '633838115790-n2cqq3788m1t0klv1fe9n0agokmj87pv.apps.googleusercontent.com';
-    var API_KEY = 'AIzaSyBYm6C_RctWNrryE5VuhGiBhKKlTGkEAKQ';
-    var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];
-    var SCOPES = "https://www.googleapis.com/auth/calendar.readonly";
     var calendarObj = {}
     await this.state.gapi.client.init({
-    apiKey: API_KEY,
-    clientId: CLIENT_ID,
-    discoveryDocs: DISCOVERY_DOCS,
-    scope: SCOPES})
+      apiKey: process.env.REACT_APP_API_KEY,
+      clientId: process.env.REACT_APP_CLIENT_ID,
+      discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"],
+      scope: "https://www.googleapis.com/auth/calendar.readonly"
+    })
     let signedIn = this.state.gapi.auth2.getAuthInstance().isSignedIn.get()
     this.setState({signedIn: signedIn})
     let gAuthData = this.state.gapi.auth2.getAuthInstance()
@@ -77,7 +75,13 @@ class Admin extends Component {
     window.location.reload()
   }
 
+  setTheState(){
+    return this
+  }
+
   listUpcomingEvents() {
+    var scopeThis = this.setTheState()
+
     this.state.gapi.client.calendar.events.list({
       'calendarId': 'primary',
       'timeMin': (new Date()).toISOString(),
@@ -87,13 +91,13 @@ class Admin extends Component {
       'orderBy': 'startTime'
     }).then(function(response) {
       var events = response.result.items;
-      console.log(events)
+      scopeThis.setState({events: events})
     });
   }
 
   showDashboard(){
     if(this.state.signedIn===true){
-      return <AdminDashboard gapi={this.state.gapi}/>
+      return <AdminDashboard gapi={this.state.gapi} events={this.state.events}/>
     }
   }
 

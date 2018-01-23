@@ -1,8 +1,9 @@
 import React, { Component }  from 'react';
 import { Switch, Route } from 'react-router-dom'
 import Homepage from '../components/Homepage'
-import Admin from '../components/Admin'
-import MyAccount from '../components/MyAccount'
+import Admin from '../components/admin/Admin'
+import MyAccount from '../components/client/MyAccount'
+import About from '../components/client/About'
 
 class Main extends Component {
   constructor(){
@@ -13,10 +14,6 @@ class Main extends Component {
     }
   }
 
-  thisState(something){
-    console.log('hi')
-  }
-
   render() {
     return (
       <div>
@@ -24,6 +21,7 @@ class Main extends Component {
           <Route exact path='/' component={Homepage}/>
           <Route path='/admin' component={Admin}/>
           <Route path='/myaccount' component={MyAccount}/>
+          <Route path='/about' component={About}/>
         </Switch>
       </div>
     )}

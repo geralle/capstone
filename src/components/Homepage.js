@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import Calendar from '../components/Calendar'
-import About from '../components/About'
-import LoginCreate from '../components/LoginCreate'
+import Calendar from '../components/client/Calendar'
+import About from '../components/client/About'
+import LoginCreate from '../components/client/LoginCreate'
 
 class Main extends Component {
   render() {
