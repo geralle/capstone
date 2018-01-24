@@ -7,7 +7,9 @@ class Admin extends Component {
     this.state = {
       gapi: '',
       signedIn: '',
-      events: []
+      events: [],
+      adminInfo: {},
+      calendarObj: {}
     }
   }
 
@@ -16,10 +18,9 @@ class Admin extends Component {
   }
 
   async loadApi(isThis) {
-    await require('google-client-api')().then(function(gapi){
-      isThis.setState({gapi: gapi})
-      isThis.initClient()
-    });
+    let gapi = await require('google-client-api')()
+    this.setState({gapi: gapi})
+    this.initClient()
   }
 
   async initClient(){
@@ -31,24 +32,21 @@ class Admin extends Component {
       scope: "https://www.googleapis.com/auth/calendar.readonly"
     })
     let signedIn = this.state.gapi.auth2.getAuthInstance().isSignedIn.get()
-    this.setState({signedIn: signedIn})
     let gAuthData = this.state.gapi.auth2.getAuthInstance()
     this.updateSigninStatus(signedIn);
     if(signedIn === true){
       var gAuthObj = {
-        token: gAuthData.currentUser.Ab.Zi.access_token,
         email: gAuthData.currentUser.Ab.w3.U3,
         name: gAuthData.currentUser.Ab.w3.ig,
         subname: gAuthData.currentUser.Ab.w3.ofa,
         profilePhoto: gAuthData.currentUser.Ab.w3.Paa
       }
-      let request = this.state.gapi.client.calendar.calendarList.list();
-      request.then(function(calendarData){
-        let calendars = calendarData.result.items;
-        for(var i=0; i<calendars.length; i++){
-          calendarObj[i] = [calendars[i].summary, calendars[i].id]
-        }
-      })
+      let request = await this.state.gapi.client.calendar.calendarList.list();
+      let calendars = request.result.items
+      for(var i=0; i<calendars.length; i++){
+        calendarObj[i] = [calendars[i].summary, calendars[i].id]
+      }
+      this.setState({signedIn: signedIn, adminInfo:gAuthObj, calendarObj:calendarObj})
     }
   }
 
@@ -79,23 +77,22 @@ class Admin extends Component {
     return this
   }
 
-  listUpcomingEvents() {
+  async listUpcomingEvents() {
     var scopeThis = this.setTheState()
-
-    this.state.gapi.client.calendar.events.list({
+    var response = await this.state.gapi.client.calendar.events.list({
       'calendarId': 'primary',
       'timeMin': (new Date()).toISOString(),
       'showDeleted': false,
       'singleEvents': true,
       'maxResults': 100,
       'orderBy': 'startTime'
-    }).then(function(response) {
-      var events = response.result.items;
-      scopeThis.setState({events: events})
-    });
+    })
+    var events = response.result.items;
+    this.setState({events: events})
   }
 
   showDashboard(){
+    console.log()
     if(this.state.signedIn===true){
       return <AdminDashboard gapi={this.state.gapi} events={this.state.events}/>
     }
