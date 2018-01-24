@@ -18,7 +18,7 @@ class Admin extends Component {
   }
 
   async loadApi(isThis) {
-    let gapi = await require('google-client-api')()
+    var gapi = await require('google-client-api')()
     this.setState({gapi: gapi})
     this.initClient()
   }
@@ -92,7 +92,6 @@ class Admin extends Component {
   }
 
   showDashboard(){
-    console.log()
     if(this.state.signedIn===true){
       return <AdminDashboard gapi={this.state.gapi} events={this.state.events}/>
     }
