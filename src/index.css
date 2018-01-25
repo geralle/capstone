@@ -59,25 +59,44 @@ body {
   margin: 20px 0 0 0;
 }
 
-.calendar, .about-logins{
-  width: 50%;
-  border: 2px solid purple;
-}
-
-.calendar-title{
-  display: flex;
-  justify-content: center;
-  margin: 10px;
-  border: 2px solid green;
-}
-
-.calendar-container{
-  border: 2px solid red;
+.calendar{
   width: 100%;
 }
 
+.calendar-header{
+  display:flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.calendar-title{
+  margin: 10px;
+}
+
+.calendar-container{
+  width: 100%;
+}
+
+.days{
+  text-align: center;
+}
+
 td{
-  height: 70px;
+  padding: 10px 0 80px 10px;
+  width: 100px;
+  border: 1px solid lightgrey;
+}
+
+ul {
+  list-style: none
+}
+
+li::before {
+  content: "•";
+  color: red;
+  display: inline-block;
+  width: 1em;
+  margin-left: -2em;
 }
 
 .about-logins{
@@ -139,4 +158,13 @@ td{
 
 #signout-button{
   display: none;
+}
+
+.event-schedule{
+  display: flex;
+  flex-direction:row;
+}
+
+.event-times{
+  margin-left: 10px;
 }

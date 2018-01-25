@@ -8,10 +8,10 @@ class Main extends Component {
     return (
       <div className="main-container">
         <Calendar />
-        <div className="about-logins">
+        {/* <div className="about-logins">
           <About />
           <LoginCreate/>
-        </div>
+        </div> */}
       </div>
     );
   }

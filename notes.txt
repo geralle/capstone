@@ -23,3 +23,13 @@ Each day will be divs according to the days time slots
     <button>Submit</button>
   </div>
 </form>
+
+{
+  "start": {
+    "dateTime": "2018-01-25T10:00:00-07:00"
+  },
+  "end": {
+    "dateTime": "2018-01-25T10:30:00-07:00"
+  },
+  "summary": "testing api"
+}

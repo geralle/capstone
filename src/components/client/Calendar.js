@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import Collapsible from 'react-collapsible';
 
 class Calendar extends Component {
   constructor(){
@@ -130,7 +131,7 @@ class Calendar extends Component {
     var fillerDayLength = selectedMonth[1].numDay
     for(var filler=0;filler<fillerDayLength;filler++){
       var calendarDay = document.createElement('td')
-      calendarDay.setAttribute('className','day-'+filler)
+      calendarDay.setAttribute('className','date-num day-'+filler)
       calendarRow.append(calendarDay)
     }
     var dayCounter = fillerDayLength
@@ -139,12 +140,22 @@ class Calendar extends Component {
       if(dayCounter<=7){
         if(reset===true){
           calendarRow = document.createElement('tr')
+          var collapsible = document.createElement('Collapsible')
+          collapsible.setAttribute('trigger', 'more')
+          var eventContainer = document.createElement('ul')
+          var event = document.createElement('li')
+          // <Collapsible trigger="Sunday">
+          //   <p>10:30</p>
+          // </Collapsible>
+          // <ul>
+          //   <li>hi</li>
+          // </ul>
           calendarRow.setAttribute('className', 'row-'+rowCounter)
           calendarMonth.append(calendarRow)
           reset=false
         }
         var calendarDay = document.createElement('td')
-        calendarDay.setAttribute('className','day-'+i)
+        calendarDay.setAttribute('className','date-num day-'+i)
         calendarDay.innerText=i
         calendarRow.append(calendarDay)
       }
@@ -188,28 +199,41 @@ class Calendar extends Component {
   render() {
     return (
       <div className="calendar">
-        <div className="calendar-title">
-          <h3>{this.state.monthName}</h3>
-        </div>
-        <div>
+
+        <div className="calendar-header">
           <button className="btn previous-month" onClick={()=>this.previousMonth()}>
             <i className="fa fa-angle-left"></i>
           </button>
+          <div className="calendar-title">
+            <h3>{this.state.monthName} {this.state.year}</h3>
+          </div>
           <button className="btn next-month" onClick={()=>this.nextMonth()}>
             <i className="fa fa-angle-right"></i>
           </button>
-          <button className="display-week" >Week</button>
-          <button className="display-month"  >Month</button>
+        </div>
+
+        <div>
           <table className="calendar-container">
             <thead>
               <tr>
-                <th>Sunday</th>
-                <th>Monday</th>
-                <th>Tuesday</th>
-                <th>Wednesday</th>
-                <th>Thursday</th>
-                <th>Friday</th>
-                <th>Saturday</th>
+                {/* <th className="days">
+                  <Collapsible trigger="Sunday">
+                    <p>10:30</p>
+                    <p>10:30</p>
+                    <p>10:30</p>
+                    <p>10:30</p>
+                    <p>10:30</p>
+                    <p>10:30</p>
+                  </Collapsible>
+                </th> */}
+
+                <th className="days">Sunday</th>
+                <th className="days">Monday</th>
+                <th className="days">Tuesday</th>
+                <th className="days">Wednesday</th>
+                <th className="days">Thursday</th>
+                <th className="days">Friday</th>
+                <th className="days">Saturday</th>
               </tr>
             </thead>
             <tbody className="calendar-week"></tbody>

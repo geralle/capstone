@@ -4,13 +4,14 @@
   "main": "app.js",
   "private": true,
   "dependencies": {
-    "bootstrap": "^4.0.0",
     "dotenv": "^4.0.0",
     "font-awesome": "^4.7.0",
     "google-client-api": "^1.0.4",
     "jquery": "^3.3.1",
     "popper.js": "^1.12.9",
     "react": "^16.2.0",
+    "react-bootstrap": "^0.32.1",
+    "react-collapsible": "^2.0.4",
     "react-dom": "^16.2.0",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.1.0"
