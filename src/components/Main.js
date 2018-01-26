@@ -4,15 +4,10 @@ import Homepage from '../components/Homepage'
 import Admin from '../components/admin/Admin'
 import MyAccount from '../components/client/MyAccount'
 import About from '../components/client/About'
+import Login from '../components/client/Login'
+import Register from '../components/client/Register'
 
 class Main extends Component {
-  constructor(){
-    super()
-    this.state = {
-      gapi: '',
-      signedIn: ''
-    }
-  }
 
   render() {
     return (
@@ -22,6 +17,8 @@ class Main extends Component {
           <Route path='/admin' component={Admin}/>
           <Route path='/myaccount' component={MyAccount}/>
           <Route path='/about' component={About}/>
+          <Route path='/login' component={Login}/>
+          <Route path='/register' component={Register}/>
         </Switch>
       </div>
     )}

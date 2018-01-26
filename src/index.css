@@ -5,10 +5,6 @@ body {
   height:100%;
 }
 
-.App{
-  margin: 30px 40px 0 40px;
-}
-
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
   height: 100px;
@@ -19,6 +15,7 @@ body {
   border-bottom: 2px solid black;
   display: flex;
   flex-direction: row;
+  background-color: black;
 }
 
 .App-title {
@@ -29,13 +26,24 @@ body {
   font-size: large;
 }
 
-.logged-in-user{
+.login-out-container{
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
   width: 100%;
   align-items: flex-end;
-  margin: 0 0 6px 0;
+  margin: 0 15px 15px 0;
+}
+
+.logged-in-header{
+  display: flex;
+  flex-direction: row;
+}
+
+.logged-in-header h5{
+  color: white;
+  margin: 0;
+  padding: 14px 10px 0 0;
 }
 
 .logout-btn{
@@ -120,7 +128,8 @@ li::before {
 }
 
 .login-container{
-  border: 2px solid orange;
+  display: flex;
+  justify-content: center;
   margin: 10px;
 }
 
@@ -128,8 +137,18 @@ li::before {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
+  width: 50%;
   margin: 20px 0 20px 0;
+}
+
+.register-form{
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+
+.register-btn-submit{
+
 }
 
 .login-input{
@@ -149,7 +168,12 @@ li::before {
 }
 
 .create-account-btn{
-  margin: 0 0 0 10px;
+  width: 90px;
+}
+
+.create-account-container{
+  display: flex;
+  flex-direction: column;
 }
 
 #authorize-button{
