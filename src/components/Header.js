@@ -30,9 +30,23 @@ class Header extends Component {
     this.setState({'token':token})
   }
 
-  toggleLogin(){
-    if(this.state.token){
+  getUserInfo(){
+    fetch('https://capstone-be.herokuapp.com/api/appts/all',
+    {
+      method: 'GET',
+      mode: 'no-cors',
+    })
+    .then(function(data){
+      return data.json()
+      .then(function(info){
+        console.log(info)
+      })
+    })
+  }
 
+  tokenExists(){
+    if(this.state.token){
+      this.getUserInfo()
       return <div className="logged-in-header"><h5>Hi, <Link to='/myaccount'>Geralle!</Link></h5><Link to='/login' className="client-login-btn btn btn-outline-warning">Log Out</Link></div>
     }else{
       return <Link to='/login' className="client-login-btn btn btn-outline-warning">Login</Link>
@@ -46,7 +60,7 @@ class Header extends Component {
          <img src={logo} className="App-logo" alt="logo" />
         </Link>
          <div className="login-out-container">
-            {this.toggleLogin()}
+            {this.tokenExists()}
          </div>
        </header>
     );
