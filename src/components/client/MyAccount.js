@@ -88,33 +88,41 @@ class MyAccount extends Component {
   render() {
     return (
       <div className="user-dashboard-container">
-        <h2>My Account</h2>
+        <div className="dashboard-title">
+          <h2>My Account</h2>
+        </div>
         <div className="my-account-container">
           <div className="appt-history-container col">
-            <h4>Appointment History</h4>
+            <div className="align-title-center">
+              <h3>Appointment History</h3>
+            </div>
             <div className="appt-history-container"></div>
           </div>
           <div className="chat-container col">
-            <h4>Chat</h4>
+            <div className="align-title-center">
+              <h3>Chat</h3>
+            </div>
           </div>
           <div className="account-details-container col">
             <form className="container" method="post" action="https://capstone-be.herokuapp.com/api/user/edit?_method=PUT">
+            <div className="align-title-center">
               <h3>Edit Info</h3>
+            </div>
               <input type="hidden" name="id" value={this.state.userInfo.id}></input>
               <div className="form-group">
-                <input className="form-control col-4" type="text" name="f_name" placeholder={this.state.userInfo.f_name}></input>
+                <input className="form-control" type="text" name="f_name" placeholder={this.state.userInfo.f_name}></input>
               </div>
               <div className="form-group">
-                <input className="form-control col-4" type="text" name="l_name" value={this.state.userInfo.l_name}></input>
+                <input className="form-control" type="text" name="l_name" value={this.state.userInfo.l_name}></input>
               </div>
               <div className="form-group">
-                <input className="form-control col-4" type="text" name="email" value={this.state.userInfo.email}></input>
+                <input className="form-control" type="text" name="email" value={this.state.userInfo.email}></input>
               </div>
               <div className="form-group">
-                <input className="form-control col-4" type="password" name="password" value={this.state.userInfo.password}></input>
+                <input className="form-control" type="password" name="password" value={this.state.userInfo.password}></input>
               </div>
               <div className="form-group">
-                <input className="form-control col-4" type="text" name="phone_number" value={this.state.userInfo.phone_number}></input>
+                <input className="form-control" type="text" name="phone_number" value={this.state.userInfo.phone_number}></input>
               </div>
               <button type="submit" className="btn btn-info">Save</button>
             </form>

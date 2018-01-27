@@ -124,8 +124,7 @@ class Calendar extends Component {
   createMonthCalendar(selectedMonth){
     var calendarMonth = document.getElementsByClassName('calendar-month')[0]
     var selectedMonthLength = Object.keys(selectedMonth).length
-    // console.log(selectedMonth['1'])
-    var rowCounter=1
+    var rowCounter = 1
     var calendarRow = document.createElement('tr')
     calendarRow.setAttribute('className', 'row-'+rowCounter)
     calendarMonth.append(calendarRow)

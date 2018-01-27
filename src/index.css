@@ -209,12 +209,17 @@ li::before {
   justify-content: center;
 }
 
+.align-title-center{
+  display: flex;
+  justify-content: center;
+}
+
 .appt-approval-container{
   display: flex;
   flex-direction: row;
 }
 
-.appt-approval-time{
+.appt-approval-time, .appt-approval-date{
   margin: 5px 0 0 0;
   font-size: 1.25em;
 }
