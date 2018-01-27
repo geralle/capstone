@@ -5,13 +5,13 @@ class MyAccount extends Component {
     super()
     this.state = {
       token: '',
-      userInfo: {}
+      userInfo: {},
+      userAppts: []
     }
   }
 
   componentDidMount(){
     this.parseToken()
-    console.log(this.state.token)
   }
 
   parseToken(){
@@ -34,15 +34,43 @@ class MyAccount extends Component {
     return userInfo
   }
 
+  async getUsersAppts(){
+    var url = 'https://capstone-be.herokuapp.com/api/user/appts/'+this.state.userInfo.id
+    var response = await fetch('https://galvanize-cors-proxy.herokuapp.com/'+url)
+    var userAppts = await response.json()
+    this.setState({userAppts: userAppts})
+    this.mapAppts()
+  }
+
   async tokenExists(token){
     if(token){
       var userInfo = await this.getUserInfo(token)
       this.setState({'userInfo': userInfo})
+      var userAppts = await this.getUsersAppts()
     }
   }
 
-  myInfo(){
-
+  mapAppts(){
+    var apptsHistory = document.getElementsByClassName('appt-history-container')[0]
+    var apptArr = this.state.userAppts.appointments
+    for(var i=0;i<apptArr.length;i++){
+      var minute = '' + apptArr[i].minute
+      if(minute.length < 2){
+        minute = apptArr[i].minute + '0'
+      }
+      var apptTime = document.createElement('p')
+      var apptDesc = document.createElement('p')
+      var apptApproved = document.createElement('p')
+      apptDesc.setAttribute('class', 'appt-desc')
+      apptTime.setAttribute('class', 'appt-time')
+      apptApproved.setAttribute('class', 'appt-approve')
+      apptTime.innerText = apptArr[i].month + '/' + apptArr[i].day + '/' + apptArr[i].year + ' ' + apptArr[i].hour + ':' + minute + apptArr[i].ampm
+      apptDesc.innerText = "Description: " + apptArr[i].description
+      apptApproved.innerText = "Approved: " + apptArr[i].approved
+      apptsHistory.append(apptTime)
+      apptsHistory.append(apptDesc)
+      apptsHistory.append(apptApproved)
+    }
   }
 
   render() {
@@ -52,30 +80,31 @@ class MyAccount extends Component {
         <div className="my-account-container">
           <div className="appt-history-container col">
             <h4>Appointment History</h4>
+            <div className="appt-history-container"></div>
           </div>
           <div className="chat-container col">
             <h4>Chat</h4>
           </div>
           <div className="account-details-container col">
-            <form class="container" method="post" action="https://capstone-be.herokuapp.com/api/user/edit?_method=PUT">
+            <form className="container" method="post" action="https://capstone-be.herokuapp.com/api/user/edit?_method=PUT">
               <h3>Edit User</h3>
               <input type="hidden" name="id" value="3"></input>
-              <div class="form-group">
-                <input class="form-control col-4" type="text" name="f_name" value={this.state.userInfo.f_name}></input>
+              <div className="form-group">
+                <input className="form-control col-4" type="text" name="f_name" value={this.state.userInfo.f_name}></input>
               </div>
-              <div class="form-group">
-                <input class="form-control col-4" type="text" name="l_name" value={this.state.userInfo.l_name}></input>
+              <div className="form-group">
+                <input className="form-control col-4" type="text" name="l_name" value={this.state.userInfo.l_name}></input>
               </div>
-              <div class="form-group">
-                <input class="form-control col-4" type="text" name="email" value={this.state.userInfo.email}></input>
+              <div className="form-group">
+                <input className="form-control col-4" type="text" name="email" value={this.state.userInfo.email}></input>
               </div>
-              <div class="form-group">
-                <input class="form-control col-4" type="password" name="password" value={this.state.userInfo.password}></input>
+              <div className="form-group">
+                <input className="form-control col-4" type="password" name="password" value={this.state.userInfo.password}></input>
               </div>
-              <div class="form-group">
-                <input class="form-control col-4" type="text" name="phone_number" value={this.state.userInfo.phone_number}></input>
+              <div className="form-group">
+                <input className="form-control col-4" type="text" name="phone_number" value={this.state.userInfo.phone_number}></input>
               </div>
-              <button type="submit" class="btn btn-info">Create</button>
+              <button type="submit" className="btn btn-info">Create</button>
             </form>
           </div>
         </div>

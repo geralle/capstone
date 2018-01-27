@@ -222,7 +222,7 @@ class NewAppt extends Component {
         </form>
       </div>
     }else{
-      return <h2>Login to set Appointment</h2>
+      return <h2>Login to set an Appointment!</h2>
     }
   }
 
