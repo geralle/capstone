@@ -30,16 +30,16 @@ class Header extends Component {
     this.setState({'token':token})
   }
 
-  getUserInfo(){
-    fetch('https://galvanize-cors-proxy.herokuapp.com/https://capstone-be.herokuapp.com/api/appts/all')
-    .then(res => res.json()
-    .then(data => console.log(data)))
-  }
+  // getUserInfo(){
+  //   fetch('https://galvanize-cors-proxy.herokuapp.com/https://capstone-be.herokuapp.com/api/appts/all')
+  //   .then(res => res.json()
+  //   .then(data => console.log(data)))
+  // }
 
   userLogout(){
     var token = this.state.token
     document.cookie = 'token' + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-    fetch('http://localhost:8000/api/user/logout/'+token,{
+    fetch('https://capstone-be.herokuapp.com/api/user/logout/'+token,{
       method:'POST',
       mode:'no-cors'
     })
@@ -49,7 +49,7 @@ class Header extends Component {
 
   tokenExists(){
     if(this.state.token){
-      this.getUserInfo()
+      // this.getUserInfo()
       return <div className="logged-in-header"><h5>Hi, <Link to='/myaccount'>Geralle!</Link></h5><button onClick={()=>this.userLogout()} className="client-login-btn btn btn-outline-warning">Log Out</button></div>
     }else{
       return <Link to='/login' className="client-login-btn btn btn-outline-warning">Login</Link>
