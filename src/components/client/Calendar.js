@@ -198,8 +198,7 @@ class Calendar extends Component {
 
   render() {
     return (
-      <div className="calendar">
-
+      <div className="calendar col">
         <div className="calendar-header">
           <button className="btn previous-month" onClick={()=>this.previousMonth()}>
             <i className="fa fa-angle-left"></i>

@@ -67,10 +67,6 @@ body {
   margin: 20px 0 0 0;
 }
 
-.calendar{
-  width: 100%;
-}
-
 .calendar-header{
   display:flex;
   flex-direction: row;
@@ -191,4 +187,14 @@ li::before {
 
 .event-times{
   margin-left: 10px;
+}
+
+.my-account-container{
+  display: flex;
+  flex-direction: row;
+}
+
+.appt-select{
+  display: flex;
+  flex-direction: row;
 }

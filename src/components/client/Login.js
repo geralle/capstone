@@ -6,7 +6,8 @@ class Login extends Component {
   constructor(){
     super()
     this.state = {
-      token: ''
+      token: '',
+      tokenBrow: ''
     }
   }
 
