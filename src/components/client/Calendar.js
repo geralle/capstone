@@ -124,6 +124,7 @@ class Calendar extends Component {
   createMonthCalendar(selectedMonth){
     var calendarMonth = document.getElementsByClassName('calendar-month')[0]
     var selectedMonthLength = Object.keys(selectedMonth).length
+    // console.log(selectedMonth['1'])
     var rowCounter=1
     var calendarRow = document.createElement('tr')
     calendarRow.setAttribute('className', 'row-'+rowCounter)
@@ -137,6 +138,15 @@ class Calendar extends Component {
     var dayCounter = fillerDayLength
     var reset = false
     for(var i=1;i<=selectedMonthLength;i++){
+      var month = '' + (this.state.month +1)
+      var day = '' + selectedMonth[i].date
+      if(month.length<2){
+        month = '0'+month
+      }
+      if(day.length<2){
+        day = '0'+day
+      }
+      var dayClass = selectedMonth[i].year + '-' + month + '-' + day
       if(dayCounter<=7){
         if(reset===true){
           calendarRow = document.createElement('tr')
@@ -155,7 +165,7 @@ class Calendar extends Component {
           reset=false
         }
         var calendarDay = document.createElement('td')
-        calendarDay.setAttribute('className','date-num day-'+i)
+        calendarDay.setAttribute('className','date-num '+dayClass)
         calendarDay.innerText=i
         calendarRow.append(calendarDay)
       }

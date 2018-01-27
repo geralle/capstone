@@ -94,7 +94,7 @@ class Admin extends Component {
   showDashboard(){
     if(this.state.signedIn===true){
       return <AdminDashboard
-        gapi={this.state.gapi} 
+        gapi={this.state.gapi}
         events={this.state.events}
         signedIn={this.state.signedIn}
       />
@@ -104,8 +104,8 @@ class Admin extends Component {
   render() {
     return (
       <div className="admin-container">
-        <button className="btn btn-primary" id="authorize-button" onClick={()=>this.handleAuthClick()}>Authorize</button>
-        <button className="btn btn-info" id="signout-button" onClick={()=>this.handleSignoutClick()}>Sign Out</button>
+        <button className="btn btn-danger" id="authorize-button" onClick={()=>this.handleAuthClick()}>Authorize</button>
+        <button className="btn btn-danger" id="signout-button" onClick={()=>this.handleSignoutClick()}>Sign Out</button>
         {this.showDashboard()}
       </div>
     );

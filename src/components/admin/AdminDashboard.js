@@ -49,23 +49,25 @@ class AdminDashboard extends Component {
 
   mapApprovals(){
     return this.state.approvals.map((data, index)=>{
-      // console.log(data)
-      var url = "https://galvanize-cors-proxy.herokuapp.com/https://capstone-be.herokuapp.com/api/approveappt/" + data.id + ":id/edit?_method=PUT"
+      var clientName = data.title.split('_')
+      var url = "https://capstone-be.herokuapp.com/api/approveappt/" + data.id + "/edit?_method=PUT"
       var minute = '' + data.minute
       if(minute.length < 2){
         minute = data.minute + '0'
       }
       var apptTime = data.month + '/' + data.day + '/' + data.year + ' ' + data.hour + ':' + minute + data.ampm
-      console.log(apptTime)
-      return <form className="container" method="post" action={url} key={index}>
-      <div className="form-group">
-        <input className="form-control" type="hidden" name="id" value={data.id}></input>
-        <div className="appt-approval-container">
-          <p className="appt-approval-time">{apptTime}</p>
-          <button className="approval-btn btn btn-success">Approve</button>
+      if(!data.approved){
+        return <form className="container" method="post" action={url} key={index}>
+        {/* <h5>Client Name: {clientName[0]}</h5> */}
+        <div className="form-group">
+          <input className="form-control" type="hidden" name="id" value={data.id}></input>
+          <div className="appt-approval-container">
+            <p className="appt-approval-time">{apptTime}</p>
+            <button className="approval-btn btn btn-success">Approve</button>
+          </div>
         </div>
-      </div>
-      </form>
+        </form>
+      }
     })
   }
 

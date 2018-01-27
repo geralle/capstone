@@ -53,23 +53,35 @@ class MyAccount extends Component {
   mapAppts(){
     var apptsHistory = document.getElementsByClassName('appt-history-container')[0]
     var apptArr = this.state.userAppts.appointments
-    for(var i=0;i<apptArr.length;i++){
-      var minute = '' + apptArr[i].minute
-      if(minute.length < 2){
-        minute = apptArr[i].minute + '0'
+    var apptCount = document.createElement('h4')
+    var pendingApprovals = 0
+    for(var pending in apptArr){
+      if(!apptArr[pending].approved){
+        pendingApprovals++
       }
-      var apptTime = document.createElement('p')
-      var apptDesc = document.createElement('p')
-      var apptApproved = document.createElement('p')
-      apptDesc.setAttribute('class', 'appt-desc')
-      apptTime.setAttribute('class', 'appt-time')
-      apptApproved.setAttribute('class', 'appt-approve')
-      apptTime.innerText = apptArr[i].month + '/' + apptArr[i].day + '/' + apptArr[i].year + ' ' + apptArr[i].hour + ':' + minute + apptArr[i].ampm
-      apptDesc.innerText = "Description: " + apptArr[i].description
-      apptApproved.innerText = "Approved: " + apptArr[i].approved
-      apptsHistory.append(apptTime)
-      apptsHistory.append(apptDesc)
-      apptsHistory.append(apptApproved)
+    }
+    apptCount.setAttribute('class', 'appointment-count')
+    apptCount.innerText = "Submitted Appointments: " + pendingApprovals
+    apptsHistory.append(apptCount)
+    for(var i=0;i<apptArr.length;i++){
+      if(apptArr[i].approved){
+        var minute = '' + apptArr[i].minute
+        if(minute.length < 2){
+          minute = apptArr[i].minute + '0'
+        }
+        var apptTime = document.createElement('p')
+        var apptDesc = document.createElement('p')
+        var apptApproved = document.createElement('p')
+        apptDesc.setAttribute('class', 'appt-desc')
+        apptTime.setAttribute('class', 'appt-time')
+        apptApproved.setAttribute('class', 'appt-approve')
+        apptTime.innerText = apptArr[i].month + '/' + apptArr[i].day + '/' + apptArr[i].year + ' ' + apptArr[i].hour + ':' + minute + apptArr[i].ampm
+        apptDesc.innerText = "Description: " + apptArr[i].description
+        apptApproved.innerText = "Approved: " + apptArr[i].approved
+        apptsHistory.append(apptTime)
+        apptsHistory.append(apptDesc)
+        apptsHistory.append(apptApproved)
+      }
     }
   }
 
