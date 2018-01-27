@@ -153,64 +153,46 @@ class Calendar extends Component {
     }
     var dayCounter = fillerDayLength
     var reset = false
-    var appt = this.state.approvedAppts
-    for(var x=0;x<Object.keys(appt).length;x++){
-      var appMonth = '' + appt[x].month
-      var appDay = '' + appt[x].day
-      if(appMonth.length<2){
-        appMonth = '0'+appMonth
+    for(var i=1;i<=selectedMonthLength;i++){
+      var month = '' + (this.state.month +1)
+      var day = '' + selectedMonth[i].date
+      if(month.length<2){
+        month = '0'+month
       }
-      if(appDay.length<2){
-        appDay = '0'+appDay
+      if(day.length<2){
+        day = '0'+day
       }
-
-      for(var i=1;i<=selectedMonthLength;i++){
-        var month = '' + (this.state.month)
-        var day = '' + selectedMonth[i].date
-        if(month.length<2){
-          month = '0'+month
+      var dayClass = selectedMonth[i].year + '-' + month + '-' + day
+      if(dayCounter<=7){
+        if(reset===true){
+          calendarRow = document.createElement('tr')
+          var collapsible = document.createElement('Collapsible')
+          collapsible.setAttribute('trigger', 'more')
+          var eventContainer = document.createElement('ul')
+          var event = document.createElement('li')
+          // <Collapsible trigger="Sunday">
+          //   <p>10:30</p>
+          // </Collapsible>
+          // <ul>
+          //   <li>hi</li>
+          // </ul>
+          calendarRow.setAttribute('className', 'row-'+rowCounter)
+          calendarMonth.append(calendarRow)
+          reset=false
         }
-        if(day.length<2){
-          day = '0'+day
-        }
-        var approvedDate = appt[x].year + '-' + appMonth + '-' + appDay
-        var dayClass = selectedMonth[i].year + '-' + month + '-' + day
-        // console.log('approve ',approvedDate)
-        // console.log('day', dayClass)
-        if(dayCounter<=7){
-          if(reset===true){
-            calendarRow = document.createElement('tr')
-            var collapsible = document.createElement('Collapsible')
-            collapsible.setAttribute('trigger', 'more')
-            var eventContainer = document.createElement('ul')
-            var event = document.createElement('li')
-            // <Collapsible trigger="Sunday">
-            //   <p>10:30</p>
-            // </Collapsible>
-            // <ul>
-            //   <li>hi</li>
-            // </ul>
-            calendarRow.setAttribute('className', 'row-'+rowCounter)
-            calendarMonth.append(calendarRow)
-            reset=false
-          }
-          if(approvedDate === dayClass){
-            console.log('hi')
-          }
-          var calendarDay = document.createElement('td')
-          calendarDay.setAttribute('className','date-day-container '+dayClass)
-          var calendarDate = document.createElement('p')
-          calendarDate.setAttribute('className', 'date-num')
-          calendarDate.innerText = i
-          calendarRow.append(calendarDay)
-          calendarDay.append(calendarDate)
-        }
-        dayCounter++
-        if(dayCounter===7){
-          dayCounter=0
-          rowCounter++
-          reset=true
-        }
+        var calendarDay = document.createElement('td')
+        calendarDay.setAttribute('className','date-day-container '+dayClass)
+        var calendarDate = document.createElement('p')
+        calendarDate.setAttribute('className', 'date-num')
+        calendarDate.innerText = i
+        calendarRow.append(calendarDay)
+        calendarDay.append(calendarDate)
+      }
+      dayCounter++
+      if(dayCounter===7){
+        dayCounter=0
+        rowCounter++
+        reset=true
       }
     }
   }
