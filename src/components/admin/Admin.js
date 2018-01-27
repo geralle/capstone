@@ -104,8 +104,8 @@ class Admin extends Component {
   render() {
     return (
       <div className="admin-container">
-        <button className="btn btn-danger" id="authorize-button" onClick={()=>this.handleAuthClick()}>Authorize</button>
-        <button className="btn btn-danger" id="signout-button" onClick={()=>this.handleSignoutClick()}>Sign Out</button>
+        <button className="btn btn-warning" id="authorize-button" onClick={()=>this.handleAuthClick()}>Authorize</button>
+        <button className="btn btn-warning" id="signout-button" onClick={()=>this.handleSignoutClick()}>Sign Out</button>
         {this.showDashboard()}
       </div>
     );

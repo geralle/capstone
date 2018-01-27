@@ -219,6 +219,11 @@ li::before {
   flex-direction: row;
 }
 
+.approval-item{
+  display: flex;
+  flex-direction: row;
+}
+
 .appt-approval-time, .appt-approval-date{
   margin: 5px 0 0 0;
   font-size: 1.25em;
@@ -226,4 +231,10 @@ li::before {
 
 .approval-btn{
   margin: 0 0 0 10px;
+}
+
+.approval-delete-container{
+  display: flex;
+  justify-content: flex-end;
+  margin-left: 2px;
 }

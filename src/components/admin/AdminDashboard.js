@@ -50,7 +50,8 @@ class AdminDashboard extends Component {
   mapApprovals(){
     return this.state.approvals.map((data, index)=>{
       var clientName = data.title.split('_')
-      var url = "https://capstone-be.herokuapp.com/api/approveappt/" + data.id + "/edit?_method=PUT"
+      var approveUrl = "https://capstone-be.herokuapp.com/api/approveappt/"+data.id+"/edit?_method=PUT"
+      var deleteApproval = "http://localhost:8000/api/appts/"+data.id+"/delete?_method=DELETE"
       var minute = '' + data.minute
       if(minute.length < 2){
         minute = data.minute + '0'
@@ -58,7 +59,7 @@ class AdminDashboard extends Component {
       var apptDate = data.month + '/' + data.day + '/' + data.year
       var apptTime = data.hour + ':' + minute + data.ampm
       if(!data.approved){
-        return <form className="container" method="post" action={url} key={index}>
+        return <div className="approval-item" key={index}><form className="approval-container col" method="post" action={approveUrl}>
           {/* <h5>Client Name: {clientName[0]}</h5> */}
           <div className="form-group">
             <input className="form-control" type="hidden" name="id" value={data.id}></input>
@@ -68,7 +69,14 @@ class AdminDashboard extends Component {
               <button className="approval-btn btn btn-success">Approve</button>
             </div>
           </div>
-        </form>
+        </form><form className="approval-delete-container" method="post" action={deleteApproval}>
+          <div className="form-group">
+            <input className="form-control" type="hidden" name="id" value={data.id}></input>
+            <div className="appt-approval-container">
+              <button className="btn btn-danger">DELETE</button>
+            </div>
+          </div>
+        </form></div>
       }
     })
   }

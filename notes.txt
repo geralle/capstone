@@ -33,3 +33,23 @@ Each day will be divs according to the days time slots
   },
   "summary": "testing api"
 }
+
+sends the client an email
+"sendNotifications":true,
+
+
+17:00 = 4:00PM
+{
+  "start": {
+    "dateTime": "2018-01-27T17:00:00-07:00"
+  },
+  "end": {
+    "dateTime": "2018-01-27T17:30:00-07:00"
+  },
+  "summary": "NEW APPOINTMENT",
+  "attendees": [
+    {
+      "email": "sdzgrail@gmail.com"
+    }
+  ]
+}
