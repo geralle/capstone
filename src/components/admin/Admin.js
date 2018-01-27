@@ -93,7 +93,11 @@ class Admin extends Component {
 
   showDashboard(){
     if(this.state.signedIn===true){
-      return <AdminDashboard gapi={this.state.gapi} events={this.state.events}/>
+      return <AdminDashboard
+        gapi={this.state.gapi} 
+        events={this.state.events}
+        signedIn={this.state.signedIn}
+      />
     }
   }
 

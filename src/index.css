@@ -198,3 +198,27 @@ li::before {
   display: flex;
   flex-direction: row;
 }
+
+.dashboard-container{
+  display: flex;
+  flex-direction: row;
+}
+
+.dashboard-title{
+  display: flex;
+  justify-content: center;
+}
+
+.appt-approval-container{
+  display: flex;
+  flex-direction: row;
+}
+
+.appt-approval-time{
+  margin: 5px 0 0 0;
+  font-size: 1.25em;
+}
+
+.approval-btn{
+  margin: 0 0 0 10px;
+}

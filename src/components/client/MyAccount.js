@@ -87,10 +87,10 @@ class MyAccount extends Component {
           </div>
           <div className="account-details-container col">
             <form className="container" method="post" action="https://capstone-be.herokuapp.com/api/user/edit?_method=PUT">
-              <h3>Edit User</h3>
-              <input type="hidden" name="id" value="3"></input>
+              <h3>Edit Info</h3>
+              <input type="hidden" name="id" value={this.state.userInfo.id}></input>
               <div className="form-group">
-                <input className="form-control col-4" type="text" name="f_name" value={this.state.userInfo.f_name}></input>
+                <input className="form-control col-4" type="text" name="f_name" placeholder={this.state.userInfo.f_name}></input>
               </div>
               <div className="form-group">
                 <input className="form-control col-4" type="text" name="l_name" value={this.state.userInfo.l_name}></input>
@@ -104,7 +104,7 @@ class MyAccount extends Component {
               <div className="form-group">
                 <input className="form-control col-4" type="text" name="phone_number" value={this.state.userInfo.phone_number}></input>
               </div>
-              <button type="submit" className="btn btn-info">Create</button>
+              <button type="submit" className="btn btn-info">Save</button>
             </form>
           </div>
         </div>
