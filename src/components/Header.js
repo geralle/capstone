@@ -30,12 +30,6 @@ class Header extends Component {
     this.setState({'token':token})
   }
 
-  // getUserInfo(){
-  //   fetch('https://galvanize-cors-proxy.herokuapp.com/https://capstone-be.herokuapp.com/api/appts/all')
-  //   .then(res => res.json()
-  //   .then(data => console.log(data)))
-  // }
-
   userLogout(){
     var token = this.state.token
     document.cookie = 'token' + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';

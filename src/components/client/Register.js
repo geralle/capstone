@@ -1,13 +1,26 @@
 import React, { Component } from 'react';
 
 class Register extends Component {
-  generateToken(){
-    var code = "";
-    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    for (var i = 0; i < 30; i++){
-      code += possible.charAt(Math.floor(Math.random() * possible.length));
+  constructor(){
+    super()
+    this.state = {
+      token: ''
     }
-    return code;
+  }
+
+  componentDidMount(){
+    this.getToken()
+  }
+
+  async getToken(){
+    var response = await fetch('https://galvanize-cors-proxy.herokuapp.com/https://capstone-be.herokuapp.com/api/generatetoken')
+    var token = await response.json()
+    this.setState({token:token.token})
+  }
+
+  postToken(){
+    document.cookie = 'token=' + this.state.token;
+    console.log(this.state.token)
   }
 
   render() {
@@ -15,7 +28,7 @@ class Register extends Component {
       <div className="register-container">
         <form className="register-form" method="post" action="https://capstone-be.herokuapp.com/api/user/create">
         <h3>Create Your Account</h3>
-        <input type="hidden" className="form-control" name="token" value={this.generateToken()}></input>
+        <input type="hidden" className="form-control" name="token" value={this.state.token}></input>
         <div className="form-group register-input">
           <input className="form-control col-4" type="text" name="f_name" placeholder="First Name" required></input>
         </div>
@@ -31,7 +44,7 @@ class Register extends Component {
         <div className="form-group register-input">
           <input className="form-control col-4" type="text" name="phone_number" placeholder="Phone Number" required></input>
         </div>
-        <button type="submit" className="register-btn-submit btn btn-info">Create</button>
+        <button type="submit" className="register-btn-submit btn btn-info" onClick={()=>this.postToken()}>Create</button>
       </form>
       </div>
     );

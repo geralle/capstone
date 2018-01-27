@@ -38,7 +38,7 @@ class Login extends Component {
     return (
       <div className="login-container">
         {/* <button onClick={()=>this.postToken()}>please</button> */}
-        <form className="login-form" method="post" action="http://localhost:8000/api/user/login">
+        <form className="login-form" method="post" action="https://capstone-be.herokuapp.com/api/user/login">
           <h3>Login</h3>
           <input type="hidden" className="form-control" name="token" value={this.state.token}></input>
           <div className="form-group login-input">
