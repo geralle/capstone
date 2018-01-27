@@ -28,7 +28,7 @@ class NewAppt extends Component {
   }
 
   async getUserInfo(token){
-    var response = await fetch('https://galvanize-cors-proxy.herokuapp.com/https://capstone-be.herokuapp.com/api/usertoken/'+token)
+    var response = await fetch('https://capstone-be.herokuapp.com/api/usertoken/'+token)
     var userInfo = await response.json()
     return userInfo
   }

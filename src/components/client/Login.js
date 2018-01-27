@@ -16,7 +16,7 @@ class Login extends Component {
   }
 
   async getToken(){
-    var response = await fetch('https://galvanize-cors-proxy.herokuapp.com/https://capstone-be.herokuapp.com/api/generatetoken')
+    var response = await fetch('https://capstone-be.herokuapp.com/api/generatetoken')
     var token = await response.json()
     this.setState({token:token.token})
   }

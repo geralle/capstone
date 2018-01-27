@@ -29,14 +29,14 @@ class MyAccount extends Component {
   }
 
   async getUserInfo(token){
-    var response = await fetch('https://galvanize-cors-proxy.herokuapp.com/https://capstone-be.herokuapp.com/api/usertoken/'+token)
+    var response = await fetch('https://capstone-be.herokuapp.com/api/usertoken/'+token)
     var userInfo = await response.json()
     return userInfo
   }
 
   async getUsersAppts(){
     var url = 'https://capstone-be.herokuapp.com/api/user/appts/'+this.state.userInfo.id
-    var response = await fetch('https://galvanize-cors-proxy.herokuapp.com/'+url)
+    var response = await fetch(url)
     var userAppts = await response.json()
     this.setState({userAppts: userAppts})
     this.mapAppts()

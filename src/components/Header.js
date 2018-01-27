@@ -32,32 +32,35 @@ class Header extends Component {
   }
 
   async getUserInfo(){
-    var response = await fetch('https://galvanize-cors-proxy.herokuapp.com/https://capstone-be.herokuapp.com/api/usertoken/'+this.state.token)
+    var response = await fetch('https://capstone-be.herokuapp.com/api/usertoken/'+this.state.token)
     var userInfo = await response.json()
     this.setState({'userInfo': userInfo})
   }
 
   async getToken(){
-    var response = await fetch('https://galvanize-cors-proxy.herokuapp.com/https://capstone-be.herokuapp.com/api/generatetoken')
+    var response = await fetch('https://capstone-be.herokuapp.com/api/generatetoken')
     var token = await response.json()
     this.setState({token:token.token})
   }
 
-  userLogout(){
+  async userLogout(){
     var token = this.state.token
     document.cookie = 'token' + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-    fetch('https://capstone-be.herokuapp.com/api/user/logout/'+token,{
-      method:'POST',
-      mode:'no-cors'
+    await fetch('https://capstone-be.herokuapp.com/api/user/logout/'+token,{
+      method:'POST'
     })
-    window.location.reload()
     this.setState({'token':''})
+    window.location.reload()
   }
 
   tokenExists(){
     if(this.state.token){
       this.getUserInfo()
-      return <div className="logged-in-header"><h5>Hi, <Link to='/myaccount'>{this.state.userInfo.f_name}!</Link></h5><button onClick={()=>this.userLogout()} className="client-login-btn btn btn-outline-warning">Log Out</button></div>
+      return <div className="logged-in-header"><h5>Hi, <Link to='/myaccount'>{this.state.userInfo.f_name}!</Link></h5>
+      <form action={"https://capstone-be.herokuapp.com/api/user/logout/"+ this.state.token} method="post">
+        <button type="submit" className="client-login-btn btn btn-outline-warning">Log Out</button>
+      </form>
+      </div>
     }else{
       return <Link to='/login' className="client-login-btn btn btn-outline-warning">Login</Link>
     }

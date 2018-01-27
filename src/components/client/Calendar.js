@@ -8,15 +8,32 @@ class Calendar extends Component {
       month: 0,
       monthName: '',
       year: 0,
-      monthObj: {}
+      monthObj: {},
+      approvedAppts: []
     }
   }
 
-  componentDidMount(){
+  async componentDidMount(){
     var currentDate = new Date()
     var month = currentDate.getMonth() +1
     var year = currentDate.getFullYear()
+    await this.getUsersAppts()
     this.daysInMonth(month, year)
+  }
+
+  async getUsersAppts(){
+    var url = 'https://capstone-be.herokuapp.com/api/appts/all'
+    var response = await fetch(url)
+    var userAppts = await response.json()
+    var approvedAppts = {}
+    var counter = 0
+    for(var appt in userAppts){
+      if(userAppts[appt].approved){
+        approvedAppts[counter] = userAppts[appt]
+        counter++
+      }
+    }
+    this.setState({approvedAppts: approvedAppts})
   }
 
   monthInYear(month){
@@ -136,43 +153,64 @@ class Calendar extends Component {
     }
     var dayCounter = fillerDayLength
     var reset = false
-    for(var i=1;i<=selectedMonthLength;i++){
-      var month = '' + (this.state.month +1)
-      var day = '' + selectedMonth[i].date
-      if(month.length<2){
-        month = '0'+month
+    var appt = this.state.approvedAppts
+    for(var x=0;x<Object.keys(appt).length;x++){
+      var appMonth = '' + appt[x].month
+      var appDay = '' + appt[x].day
+      if(appMonth.length<2){
+        appMonth = '0'+appMonth
       }
-      if(day.length<2){
-        day = '0'+day
+      if(appDay.length<2){
+        appDay = '0'+appDay
       }
-      var dayClass = selectedMonth[i].year + '-' + month + '-' + day
-      if(dayCounter<=7){
-        if(reset===true){
-          calendarRow = document.createElement('tr')
-          var collapsible = document.createElement('Collapsible')
-          collapsible.setAttribute('trigger', 'more')
-          var eventContainer = document.createElement('ul')
-          var event = document.createElement('li')
-          // <Collapsible trigger="Sunday">
-          //   <p>10:30</p>
-          // </Collapsible>
-          // <ul>
-          //   <li>hi</li>
-          // </ul>
-          calendarRow.setAttribute('className', 'row-'+rowCounter)
-          calendarMonth.append(calendarRow)
-          reset=false
+
+      for(var i=1;i<=selectedMonthLength;i++){
+        var month = '' + (this.state.month)
+        var day = '' + selectedMonth[i].date
+        if(month.length<2){
+          month = '0'+month
         }
-        var calendarDay = document.createElement('td')
-        calendarDay.setAttribute('className','date-num '+dayClass)
-        calendarDay.innerText=i
-        calendarRow.append(calendarDay)
-      }
-      dayCounter++
-      if(dayCounter===7){
-        dayCounter=0
-        rowCounter++
-        reset=true
+        if(day.length<2){
+          day = '0'+day
+        }
+        var approvedDate = appt[x].year + '-' + appMonth + '-' + appDay
+        var dayClass = selectedMonth[i].year + '-' + month + '-' + day
+        // console.log('approve ',approvedDate)
+        // console.log('day', dayClass)
+        if(dayCounter<=7){
+          if(reset===true){
+            calendarRow = document.createElement('tr')
+            var collapsible = document.createElement('Collapsible')
+            collapsible.setAttribute('trigger', 'more')
+            var eventContainer = document.createElement('ul')
+            var event = document.createElement('li')
+            // <Collapsible trigger="Sunday">
+            //   <p>10:30</p>
+            // </Collapsible>
+            // <ul>
+            //   <li>hi</li>
+            // </ul>
+            calendarRow.setAttribute('className', 'row-'+rowCounter)
+            calendarMonth.append(calendarRow)
+            reset=false
+          }
+          if(approvedDate === dayClass){
+            console.log('hi')
+          }
+          var calendarDay = document.createElement('td')
+          calendarDay.setAttribute('className','date-day-container '+dayClass)
+          var calendarDate = document.createElement('p')
+          calendarDate.setAttribute('className', 'date-num')
+          calendarDate.innerText = i
+          calendarRow.append(calendarDay)
+          calendarDay.append(calendarDate)
+        }
+        dayCounter++
+        if(dayCounter===7){
+          dayCounter=0
+          rowCounter++
+          reset=true
+        }
       }
     }
   }

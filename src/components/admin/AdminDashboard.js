@@ -51,7 +51,7 @@ class AdminDashboard extends Component {
     return this.state.approvals.map((data, index)=>{
       var clientName = data.title.split('_')
       var approveUrl = "https://capstone-be.herokuapp.com/api/approveappt/"+data.id+"/edit?_method=PUT"
-      var deleteApproval = "http://localhost:8000/api/appts/"+data.id+"/delete?_method=DELETE"
+      var deleteApproval = "https://capstone-be.herokuapp.com/api/appts/"+data.id+"/delete?_method=DELETE"
       var minute = '' + data.minute
       if(minute.length < 2){
         minute = data.minute + '0'
