@@ -1,3 +1,31 @@
+return <div className="approval-item" key={index}>
+<div className="approval-outter-container">
+  <h5>Client Name: {clientName[0]}</h5>
+    <div className="approval-combine-container">
+      <form className="approval-container col" method="post" action={approveUrl}>
+        <div className="form-group">
+          <input className="form-control" type="hidden" name="id" value={data.id}></input>
+          <div className="appt-approval-container">
+            <p className="appt-approval-date col">{apptDate}</p>
+            <p className="appt-approval-time col">{apptTime}</p>
+            <button className="approval-btn btn btn-success">Approve</button>
+          </div>
+        </div>
+      </form>
+      <form className="approval-delete-container" method="post" action={deleteApproval}>
+        <div className="form-group">
+          <input className="form-control" type="hidden" name="id" value={data.id}></input>
+          <div className="appt-approval-container">
+            <button className="btn btn-danger">DELETE</button>
+          </div>
+        </div>
+      </form>
+    </div>
+</div>
+</div>
+
+
+
 createMonthCalendar(selectedMonth){
   var calendarMonth = document.getElementsByClassName('calendar-month')[0]
   var selectedMonthLength = Object.keys(selectedMonth).length

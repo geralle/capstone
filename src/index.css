@@ -233,13 +233,28 @@ li::before {
   flex-direction: row;
 }
 
+.approval-outter-container{
+  display: flex;
+  flex-direction: column;
+}
+
+.approval-combine-container{
+  display: flex;
+  flex-direction: row;
+  margin: 0;
+}
+
 .appt-approval-time, .appt-approval-date{
   margin: 5px 0 0 0;
   font-size: 1.25em;
 }
 
+.approval-container{
+  padding: 0;
+}
+
 .approval-btn{
-  margin: 0 0 0 10px;
+  /* margin: 0 0 0 10px; */
 }
 
 .approval-delete-container{

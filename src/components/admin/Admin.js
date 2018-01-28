@@ -29,7 +29,7 @@ class Admin extends Component {
       apiKey: process.env.REACT_APP_API_KEY,
       clientId: process.env.REACT_APP_CLIENT_ID,
       discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"],
-      scope: "https://www.googleapis.com/auth/calendar.readonly"
+      scope: "https://www.googleapis.com/auth/calendar"
     })
     let signedIn = this.state.gapi.auth2.getAuthInstance().isSignedIn.get()
     let gAuthData = this.state.gapi.auth2.getAuthInstance()
@@ -88,6 +88,7 @@ class Admin extends Component {
       'orderBy': 'startTime'
     })
     var events = response.result.items;
+    console.log(events)
     this.setState({events: events})
   }
 

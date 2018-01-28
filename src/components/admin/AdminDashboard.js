@@ -14,6 +14,33 @@ class AdminDashboard extends Component {
     this.getAllAppts()
   }
 
+  async createEvent(){
+    var event = {
+      "start": {
+        "dateTime": "2018-01-28T17:00:00-07:00"
+      },
+      "end": {
+        "dateTime": "2018-01-28T17:30:00-07:00"
+      },
+      "summary": "NEW APPOINTMENT",
+      "sendNotifications":true,
+      "attendees": [
+        {
+          "email": "sdzgrail@gmail.com"
+        }
+      ]
+    }
+
+    var request = await this.props.gapi.client.request({
+        'method': 'POST',
+        'path': '/calendar/v3/calendars/primary/events',
+        'params': {'sendNotifications': 'true'},
+        'body': event
+    });
+
+    console.log(request)
+  }
+
   mapEvents(){
     return this.props.events.map((data,index)=>{
       var fullStartDT = new Date(data.start.dateTime)
@@ -49,34 +76,37 @@ class AdminDashboard extends Component {
 
   mapApprovals(){
     return this.state.approvals.map((data, index)=>{
-      var clientName = data.title.split('_')
-      var approveUrl = "https://capstone-be.herokuapp.com/api/approveappt/"+data.id+"/edit?_method=PUT"
-      var deleteApproval = "https://capstone-be.herokuapp.com/api/appts/"+data.id+"/delete?_method=DELETE"
-      var minute = '' + data.minute
-      if(minute.length < 2){
-        minute = data.minute + '0'
-      }
-      var apptDate = data.month + '/' + data.day + '/' + data.year
-      var apptTime = data.hour + ':' + minute + data.ampm
-      if(!data.approved){
-        return <div className="approval-item" key={index}><form className="approval-container col" method="post" action={approveUrl}>
-          {/* <h5>Client Name: {clientName[0]}</h5> */}
-          <div className="form-group">
-            <input className="form-control" type="hidden" name="id" value={data.id}></input>
-            <div className="appt-approval-container">
-              <p className="appt-approval-date col">{apptDate}</p>
-              <p className="appt-approval-time col">{apptTime}</p>
-              <button className="approval-btn btn btn-success">Approve</button>
+  var clientName = data.title.split('_')
+  var approveUrl = "https://capstone-be.herokuapp.com/api/approveappt/"+data.id+"/edit?_method=PUT"
+  var deleteApproval = "https://capstone-be.herokuapp.com/api/appts/"+data.id+"/delete?_method=DELETE"
+  var minute = '' + data.minute
+  if(minute.length < 2){
+    minute = data.minute + '0'
+  }
+  var apptDate = data.month + '/' + data.day + '/' + data.year
+  var apptTime = data.hour + ':' + minute + data.ampm
+  if(!data.approved){
+    return <div className="approval-item" key={index}>
+              <form className="approval-container col" method="post" action={approveUrl}>
+                <div className="form-group">
+                  {/* <h5>{clientName[0]}</h5> */}
+                  <input className="form-control" type="hidden" name="id" value={data.id}></input>
+                  <div className="appt-approval-container">
+                    <p className="appt-approval-date col">{apptDate}</p>
+                    <p className="appt-approval-time col">{apptTime}</p>
+                    <button className="approval-btn btn btn-success" onClick={()=>this.createEvent()}>Approve</button>
+                  </div>
+                </div>
+              </form>
+              <form className="approval-delete-container" method="post" action={deleteApproval}>
+                <div className="form-group">
+                  <input className="form-control" type="hidden" name="id" value={data.id}></input>
+                  <div className="appt-approval-container">
+                    <button className="btn btn-danger">DELETE</button>
+                  </div>
+                </div>
+              </form>
             </div>
-          </div>
-        </form><form className="approval-delete-container" method="post" action={deleteApproval}>
-          <div className="form-group">
-            <input className="form-control" type="hidden" name="id" value={data.id}></input>
-            <div className="appt-approval-container">
-              <button className="btn btn-danger">DELETE</button>
-            </div>
-          </div>
-        </form></div>
       }
     })
   }
