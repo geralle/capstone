@@ -135,10 +135,10 @@ class Calendar extends Component {
       monthObj: selectedMonth,
       monthName: monthName
     })
-    this.createMonthCalendar(selectedMonth)
+    this.createMonthCalendar(month,selectedMonth)
   }
 
-  createMonthCalendar(selectedMonth){
+  createMonthCalendar(newMonth,selectedMonth){
     var calendarMonth = document.getElementsByClassName('calendar-month')[0]
     var selectedMonthLength = Object.keys(selectedMonth).length
     var rowCounter = 1
@@ -154,7 +154,7 @@ class Calendar extends Component {
     var dayCounter = fillerDayLength
     var reset = false
     for(var i=1;i<=selectedMonthLength;i++){
-      var month = '' + (this.state.month +1)
+      var month = '' + newMonth
       var day = '' + selectedMonth[i].date
       if(month.length<2){
         month = '0'+month
@@ -182,11 +182,41 @@ class Calendar extends Component {
         }
         var calendarDay = document.createElement('td')
         calendarDay.setAttribute('className','date-day-container '+dayClass)
-        var calendarDate = document.createElement('p')
+        var calendarDate = document.createElement('div')
         calendarDate.setAttribute('className', 'date-num')
         calendarDate.innerText = i
+        var appt = this.state.approvedAppts
         calendarRow.append(calendarDay)
         calendarDay.append(calendarDate)
+        for(var x in appt){
+          var appMonth = '' + appt[x].month
+          var appDay = '' + appt[x].day
+          var appHour = '' + appt[x].hour
+          var appMinute = '' + appt[x].minute
+          if(appHour.length<2){
+            appHour = '0'+appHour
+          }
+          if(appMinute.length<2){
+            appMinute = '0'+appMinute
+          }
+          if(appMonth.length<2){
+            appMonth = '0'+appMonth
+          }
+          if(appDay.length<2){
+            appDay = '0'+appDay
+          }
+          var approvedDate = appt[x].year + '-' + appMonth + '-' + appDay
+          var apptTime = appHour + ':' + appMinute + appt[x].ampm
+          if(dayClass===approvedDate){
+            var eventContainer = document.createElement('ul')
+            var event = document.createElement('li')
+            calendarDay.append(eventContainer)
+            event.innerText = apptTime
+            event.setAttribute('className', 'approved-date')
+            eventContainer.append(event)
+          }
+        }
+
       }
       dayCounter++
       if(dayCounter===7){
