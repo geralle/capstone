@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import $ from 'jquery';
 
 class MyAccount extends Component {
   constructor(){
@@ -123,11 +124,12 @@ class MyAccount extends Component {
             </div>
             <div className="appt-history-container"></div>
           </div>
-          {/* <div className="chat-container col">
+          <div className="chat-container col">
             <div className="align-title-center">
               <h3>Chat</h3>
             </div>
-          </div> */}
+            <iframe src="http://localhost:3000" className="chat-container-frame"></iframe>
+          </div>
           <div className="account-details-container col">
             {this.displayUserForm()}
           </div>
