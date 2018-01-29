@@ -46,11 +46,11 @@ class Header extends Component {
   async userLogout(){
     console.log('logout')
     var token = this.state.token
-
-    var response = await fetch('https://capstone-be.herokuapp.com/api/user/logout/'+token,{
+    // document.cookie = 'token' + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    document.cookie = "token=;expires=Thu, 01 Jan 1970 00:00:00 GMT;"
+    await fetch('https://capstone-be.herokuapp.com/api/user/logout/'+token,{
       method:'POST'
     })
-    document.cookie = "token=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=[https://geralle-capstone.firebaseapp.com/];"
     this.setState({'token':''})
   }
 

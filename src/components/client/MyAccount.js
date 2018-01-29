@@ -123,11 +123,11 @@ class MyAccount extends Component {
             </div>
             <div className="appt-history-container"></div>
           </div>
-          <div className="chat-container col">
+          {/* <div className="chat-container col">
             <div className="align-title-center">
               <h3>Chat</h3>
             </div>
-          </div>
+          </div> */}
           <div className="account-details-container col">
             {this.displayUserForm()}
           </div>

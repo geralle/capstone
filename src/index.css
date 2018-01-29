@@ -104,8 +104,9 @@ li::before {
   margin-left: -2em;
 }
 
-.date-num{
-  margin-bottom: 0;
+td .date-num{
+  padding: 5px 0px 0px 10px;
+  background-color: orange;
 }
 
 .date-day-container ul{
