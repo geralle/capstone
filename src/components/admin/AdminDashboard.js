@@ -12,33 +12,7 @@ class AdminDashboard extends Component {
 
   componentDidMount(){
     this.getAllAppts()
-  }
-
-  async createEvent(){
-    var event = {
-      "start": {
-        "dateTime": "2018-01-28T17:00:00-07:00"
-      },
-      "end": {
-        "dateTime": "2018-01-28T17:30:00-07:00"
-      },
-      "summary": "NEW APPOINTMENT",
-      "sendNotifications":true,
-      "attendees": [
-        {
-          "email": "sdzgrail@gmail.com"
-        }
-      ]
-    }
-
-    var request = await this.props.gapi.client.request({
-        'method': 'POST',
-        'path': '/calendar/v3/calendars/primary/events',
-        'params': {'sendNotifications': 'true'},
-        'body': event
-    });
-
-    console.log(request)
+    // console.log(this.props.everything)
   }
 
   mapEvents(){
@@ -68,47 +42,130 @@ class AdminDashboard extends Component {
 
   async getAllAppts(){
     if(this.props.signedIn){
-      var response = await fetch('https://galvanize-cors-proxy.herokuapp.com/https://capstone-be.herokuapp.com/api/appts/all')
+      var response = await fetch('https://capstone-be.herokuapp.com/api/appts/all')
       var allAppts = await response.json()
       this.setState({approvals:allAppts})
     }
   }
 
-  mapApprovals(){
-    return this.state.approvals.map((data, index)=>{
-  var clientName = data.title.split('_')
-  var approveUrl = "https://capstone-be.herokuapp.com/api/approveappt/"+data.id+"/edit?_method=PUT"
-  var deleteApproval = "https://capstone-be.herokuapp.com/api/appts/"+data.id+"/delete?_method=DELETE"
-  var minute = '' + data.minute
-  if(minute.length < 2){
-    minute = data.minute + '0'
+  militaryFormat(hour){
+    var militaryHour = 0
+    switch (hour) {
+      case 1:
+        militaryHour = 13
+        break;
+      case 2:
+        militaryHour = 14
+        break;
+      case 3:
+        militaryHour = 15
+        break;
+      case 4:
+        militaryHour = 16
+        break;
+      case 5:
+        militaryHour = 17
+        break;
+      case 6:
+        militaryHour = 18
+        break;
+      case 7:
+        militaryHour = 19
+        break;
+      case 8:
+        militaryHour = 20
+        break;
+      case 9:
+        militaryHour = 21
+        break;
+      case 10:
+        militaryHour = 22
+        break;
+      case 11:
+        militaryHour = 23
+        break;
+      case 12:
+        militaryHour = 24
+        break;
+      default:
+        break;
+    }
+    return militaryHour
   }
-  var apptDate = data.month + '/' + data.day + '/' + data.year
-  var apptTime = data.hour + ':' + minute + data.ampm
-  if(!data.approved){
-    return <div className="approval-item" key={index}>
-              <form className="approval-container col" method="post" action={approveUrl}>
-                <div className="form-group">
-                  {/* <h5>{clientName[0]}</h5> */}
-                  <input className="form-control" type="hidden" name="id" value={data.id}></input>
-                  <div className="appt-approval-container">
-                    <p className="appt-approval-date col">{apptDate}</p>
-                    <p className="appt-approval-time col">{apptTime}</p>
-                    <button className="approval-btn btn btn-success" onClick={()=>this.createEvent()}>Approve</button>
-                  </div>
-                </div>
-              </form>
-              <form className="approval-delete-container" method="post" action={deleteApproval}>
-                <div className="form-group">
-                  <input className="form-control" type="hidden" name="id" value={data.id}></input>
-                  <div className="appt-approval-container">
-                    <button className="btn btn-danger">DELETE</button>
-                  </div>
-                </div>
-              </form>
-            </div>
+
+  async createEvent(start, end, email, description){
+    var event = {
+      "start": {
+        "dateTime": start
+      },
+      "end": {
+        "dateTime": end
+      },
+      "description": description,
+      "summary": "APPOINTMENT APPROVED!",
+      "sendNotifications":true,
+      "attendees": [
+        {
+          "email": email
+        }
+      ]
+    }
+
+    var request = await this.props.gapi.client.request({
+        'method': 'POST',
+        'path': '/calendar/v3/calendars/primary/events',
+        'params': {'sendNotifications': 'true'},
+        'body': event
+    });
+
+    console.log(request)
+  }
+
+  mapApprovals(){
+    return this.props.everything.map((data, index)=>{
+      var clientName = data.title.split('_')
+      var approveUrl = "http://localhost:8000/api/approveappt/"+data.id+"/edit?_method=PUT"
+      var deleteApproval = "https://capstone-be.herokuapp.com/api/appts/"+data.id+"/delete?_method=DELETE"
+      var minute = '' + data.minute
+      var month = '' + data.month
+      if(minute.length < 2){
+        minute = data.minute + '0'
       }
-    })
+      if(month.length < 2){
+        month = '0' + data.month
+      }
+      var apptDate = data.month + '/' + data.day + '/' + data.year
+      var apptTime = data.hour + ':' + minute + data.ampm
+
+      if(!data.approved){
+        var hour = this.militaryFormat(data.hour) + ':' + minute
+        var endHour = (this.militaryFormat(data.hour) +1) + ':' + minute
+        var eventStart = data.year+'-'+month+'-'+data.day+'T'+ hour +':00-07:00'
+        var eventEnd = data.year+'-'+month+'-'+data.day+'T'+endHour+':00-07:00'
+        return <div className="approval-item" key={index}>
+                  <form className="approval-container col" method="post" action={approveUrl}>
+                    <div className="form-group">
+                      {/* <h5>{clientName[0]}</h5> */}
+                      <input className="form-control" type="hidden" name="id" value={data.id}></input>
+                      <div className="appt-approval-container">
+                        <p className="appt-approval-date col">{apptDate}</p>
+                        <p className="appt-approval-time col">{apptTime}</p>
+                        <input type="hidden" value={eventStart}></input>
+                        <button className="approval-btn btn btn-success" onClick={()=>this.createEvent(eventStart, eventEnd, data.email, data.description)}>Approve</button>
+                      </div>
+                    </div>
+                  </form>
+                  <form className="approval-delete-container" method="post" action={deleteApproval}>
+                    <div className="form-group">
+                      <input className="form-control" type="hidden" name="id" value={data.id}></input>
+                      <div className="appt-approval-container">
+                        <button className="btn btn-danger">DELETE</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+          }
+      })
   }
 
   events(){

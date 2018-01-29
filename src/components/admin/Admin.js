@@ -9,18 +9,26 @@ class Admin extends Component {
       signedIn: '',
       events: [],
       adminInfo: {},
-      calendarObj: {}
+      calendarObj: {},
+      allUserAppts: []
     }
   }
 
   componentDidMount(){
     this.loadApi(this)
+    this.getAllUsersAndAppts()
   }
 
   async loadApi(isThis) {
     var gapi = await require('google-client-api')()
     this.setState({gapi: gapi})
     this.initClient()
+  }
+
+  async getAllUsersAndAppts(){
+    var request = await fetch('http://capstone-be.herokuapp.com/api/users/appts/all')
+    var everything = await request.json()
+    this.setState({allUserAppts: everything})
   }
 
   async initClient(){
@@ -88,7 +96,6 @@ class Admin extends Component {
       'orderBy': 'startTime'
     })
     var events = response.result.items;
-    console.log(events)
     this.setState({events: events})
   }
 
@@ -98,6 +105,7 @@ class Admin extends Component {
         gapi={this.state.gapi}
         events={this.state.events}
         signedIn={this.state.signedIn}
+        everything={this.state.allUserAppts}
       />
     }
   }

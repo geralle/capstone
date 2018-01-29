@@ -121,7 +121,7 @@ class NewAppt extends Component {
                 </select>
               </div>
               <div className="form-group">
-                <input className="form-control" type="number" min="1" max="31" name="day" placeholder="1" ></input>
+                <input className="form-control" type="number" min="1" max="31" name="day" value="1" ></input>
               </div>
               <div className="form-group">
                 <input className="form-control" type="text" name="year" defaultValue="2018" ></input>
@@ -176,7 +176,7 @@ class NewAppt extends Component {
                 </select>
               </div>
               <div className="form-group">
-                <input className="form-control" type="number" min="1" max="31" name="day" placeholder="1" ></input>
+                <input className="form-control" type="number" min="1" max="31" name="day" value="1" ></input>
               </div>
               <div className="form-group">
                 <input className="form-control" type="text" name="year" defaultValue="2018" ></input>
