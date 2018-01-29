@@ -119,12 +119,13 @@ class AdminDashboard extends Component {
     });
 
     console.log(request)
+    window.location.reload()
   }
 
   mapApprovals(){
     return this.props.everything.map((data, index)=>{
       var clientName = data.title.split('_')
-      var approveUrl = "http://localhost:8000/api/approveappt/"+data.id+"/edit?_method=PUT"
+      var approveUrl = "https://capstone-be.herokuapp.com/api/approveappt/"+data.id+"/edit?_method=PUT"
       var deleteApproval = "https://capstone-be.herokuapp.com/api/appts/"+data.id+"/delete?_method=DELETE"
       var minute = '' + data.minute
       var month = '' + data.month

@@ -50,7 +50,6 @@ class Header extends Component {
       method:'POST'
     })
     this.setState({'token':''})
-    window.location.reload()
   }
 
   tokenExists(){
@@ -58,7 +57,7 @@ class Header extends Component {
       this.getUserInfo()
       return <div className="logged-in-header"><h5>Hi, <Link to='/myaccount'>{this.state.userInfo.f_name}!</Link></h5>
       <form action={"https://capstone-be.herokuapp.com/api/user/logout/"+ this.state.token} method="post">
-        <button type="submit" className="client-login-btn btn btn-outline-warning">Log Out</button>
+        <button className="client-login-btn btn btn-outline-warning" onClick={()=>this.userLogout()}>Log Out</button>
       </form>
       </div>
     }else{
