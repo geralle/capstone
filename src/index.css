@@ -264,7 +264,7 @@ td .date-num{
 }
 
 .approval-delete-container{
-  display: flex;
+  /* display: flex;
   justify-content: flex-end;
-  margin-left: 2px;
+  margin-left: 2px; */
 }

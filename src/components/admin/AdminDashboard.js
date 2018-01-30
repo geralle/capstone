@@ -43,9 +43,9 @@ class AdminDashboard extends Component {
     if(this.props.signedIn){
       var response = await fetch('https://capstone-be.herokuapp.com/api/appts/all')
       var allAppts = await response.json()
-      console.log(allAppts.length)
       this.setState({approvals:allAppts})
     }
+    return allAppts
   }
 
   militaryFormat(hour){
@@ -93,7 +93,8 @@ class AdminDashboard extends Component {
     return militaryHour
   }
 
-  async createEvent(start, end, email, description){
+  async createEvent(eventId, start, end, email, description){
+    console.log('event created')
     var event = {
       "start": {
         "dateTime": start
@@ -116,9 +117,16 @@ class AdminDashboard extends Component {
         'path': '/calendar/v3/calendars/primary/events',
         'params': {'sendNotifications': 'true'},
         'body': event
-    });
+    })
 
-    console.log(request)
+    var dbRequest = await fetch('https://capstone-be.herokuapp.com/api/approveappt/'+eventId+'/edit', {
+      method:'PUT',
+      mode: 'cors',
+      redirect: 'follow',
+      headers: new Headers({'Content-Type': 'text/plain'})
+    }).then(function(data){
+        console.log(data)
+    })
     window.location.reload()
   }
 
@@ -143,27 +151,27 @@ class AdminDashboard extends Component {
         var endHour = (this.militaryFormat(data.hour) +1) + ':' + minute
         var eventStart = data.year+'-'+month+'-'+data.day+'T'+ hour +':00-07:00'
         var eventEnd = data.year+'-'+month+'-'+data.day+'T'+endHour+':00-07:00'
-        return <div className="approval-item" key={index}>
-                  <form className="approval-container col" method="post" action={approveUrl}>
-                    <div className="form-group">
-                      {/* <h5>{clientName[0]}</h5> */}
-                      <input className="form-control" type="hidden" name="id" value={data.id}></input>
-                      <div className="appt-approval-container">
-                        <p className="appt-approval-date col">{apptDate}</p>
-                        <p className="appt-approval-time col">{apptTime}</p>
-                        <input type="hidden" value={eventStart}></input>
-                        <button className="approval-btn btn btn-success" onClick={()=>this.createEvent(eventStart, eventEnd, data.email, data.description)}>Approve</button>
+        return  <div className="approval-item" key={index}>
+                  <div className="approval-delete-container">
+                    <div className="approval-container col">
+                      <div className="form-group">
+                        <div className="appt-approval-container">
+                          <p className="appt-approval-date col">{apptDate}</p>
+                          <p className="appt-approval-time col">{apptTime}</p>
+                          <input type="hidden" value={eventStart}></input>
+                        </div>
                       </div>
+                      <button className="approval-btn btn btn-success" onClick={()=>this.createEvent(data.id, eventStart, eventEnd, data.email, data.description)}>Approve</button>
                     </div>
-                  </form>
-                  <form className="approval-delete-container" method="post" action={deleteApproval}>
-                    <div className="form-group">
-                      <input className="form-control" type="hidden" name="id" value={data.id}></input>
-                      <div className="appt-approval-container">
-                        <button className="btn btn-danger">DELETE</button>
+                    <form className="delete-container col" method="post" action={deleteApproval}>
+                      <div className="form-group">
+                        <input className="form-control" type="hidden" name="id" value={data.id}></input>
+                        <div className="appt-approval-container">
+                          <button className="btn btn-danger">DELETE</button>
+                        </div>
                       </div>
-                    </div>
-                  </form>
+                    </form>
+                  </div>
                 </div>
           }
       })
