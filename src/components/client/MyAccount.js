@@ -52,37 +52,29 @@ class MyAccount extends Component {
   }
 
   mapAppts(){
-    var apptsHistory = document.getElementsByClassName('appt-history-container')[0]
     var apptArr = this.state.userAppts.appointments
-    var apptCount = document.createElement('h4')
-    var pendingApprovals = 0
-    for(var pending in apptArr){
-      if(!apptArr[pending].approved){
-        pendingApprovals++
-      }
-    }
-    apptCount.setAttribute('class', 'appointment-count')
-    apptCount.innerText = "Pending Approvals: " + pendingApprovals
-    apptsHistory.append(apptCount)
-    for(var i=0;i<apptArr.length;i++){
-      if(apptArr[i].approved){
-        var minute = '' + apptArr[i].minute
+    if(apptArr != undefined){
+      return apptArr.map((data, index)=>{
+        var hour = data.hour
+        var minute = data.minute + ''
         if(minute.length < 2){
-          minute = apptArr[i].minute + '0'
+          minute = "0" + minute
         }
-        var apptTime = document.createElement('p')
-        var apptDesc = document.createElement('p')
-        var apptApproved = document.createElement('p')
-        apptDesc.setAttribute('class', 'appt-desc')
-        apptTime.setAttribute('class', 'appt-time')
-        apptApproved.setAttribute('class', 'appt-approve')
-        apptTime.innerText = apptArr[i].month + '/' + apptArr[i].day + '/' + apptArr[i].year + ' ' + apptArr[i].hour + ':' + minute + apptArr[i].ampm
-        apptDesc.innerText = "Description: " + apptArr[i].description
-        apptApproved.innerText = "Approved: " + apptArr[i].approved
-        apptsHistory.append(apptTime)
-        apptsHistory.append(apptDesc)
-        apptsHistory.append(apptApproved)
-      }
+        var date = data.month +'/'+ data.day +'/'+ data.year
+        return <div className="approval-delete-container" key={index}>
+          <div className="title-time-container">
+            <h2>{data.title}</h2>
+            <div className="time-button-container">
+              <div className="appt-time">
+                <p>{date} | {hour}:{minute} {data.ampm}</p>
+              </div>
+            </div>
+          </div>
+          <div className="description-container">
+            <p>description: {data.description}</p>
+          </div>
+        </div>
+      })
     }
   }
 
@@ -122,7 +114,9 @@ class MyAccount extends Component {
             <div className="align-title-center">
               <h3>Appointment History</h3>
             </div>
-            <div className="appt-history-container"></div>
+            <div className="appt-history-container">
+              {this.mapAppts()}
+            </div>
           </div>
           <div className="chat-container col">
             <div className="align-title-center">

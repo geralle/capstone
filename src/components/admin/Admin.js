@@ -59,13 +59,16 @@ class Admin extends Component {
   }
 
   updateSigninStatus(isSignedIn) {
+    var adminTitle = document.getElementById('admin-login-title')
     var authorizeButton = document.getElementById('authorize-button');
     // var signoutButton = document.getElementById('signout-button');
     if (isSignedIn) {
       authorizeButton.style.display = 'none';
+      adminTitle.style.display = 'none';
       // signoutButton.style.display = 'block';
       this.listUpcomingEvents();
     } else {
+      adminTitle.style.display = 'block';
       authorizeButton.style.display = 'block';
       // signoutButton.style.display = 'none';
     }
@@ -115,7 +118,10 @@ class Admin extends Component {
     return (
       <div className="admin-container">
         <div className="authorize-container">
-          <button className="btn btn-warning" id="authorize-button" onClick={()=>this.handleAuthClick()}>Authorize</button>
+          <div className="dashboard-title">
+            <h1 id="admin-login-title">Administrator Login</h1>
+            <button className="btn btn-warning" id="authorize-button" onClick={()=>this.handleAuthClick()}>Authorize</button>
+          </div>
           {/* <button className="btn btn-warning" id="signout-button" onClick={()=>this.handleSignoutClick()}>Sign Out</button> */}
         </div>
         {this.showDashboard()}

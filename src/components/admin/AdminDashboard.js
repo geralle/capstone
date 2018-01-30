@@ -97,7 +97,6 @@ class AdminDashboard extends Component {
   }
 
   async createEvent(title, eventId, start, end, email, description){
-    console.log('event created')
     var event = {
       "start": {
         "dateTime": start
@@ -128,7 +127,6 @@ class AdminDashboard extends Component {
       redirect: 'follow',
       headers: new Headers({'Content-Type': 'text/plain'})
     }).then(function(data){
-        console.log(data)
     })
     window.location.reload()
   }
