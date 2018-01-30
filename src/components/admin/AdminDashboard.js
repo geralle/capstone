@@ -12,7 +12,6 @@ class AdminDashboard extends Component {
 
   componentDidMount(){
     this.getAllAppts()
-    // console.log(this.props.everything)
   }
 
   mapEvents(){
@@ -44,6 +43,7 @@ class AdminDashboard extends Component {
     if(this.props.signedIn){
       var response = await fetch('https://capstone-be.herokuapp.com/api/appts/all')
       var allAppts = await response.json()
+      console.log(allAppts.length)
       this.setState({approvals:allAppts})
     }
   }
@@ -224,11 +224,11 @@ class AdminDashboard extends Component {
             <div className="align-title-center">
               <h3>Chat</h3>
             </div>
-            <iframe src="http://localhost:3000" frameborder="0" className="chat-container-frame"></iframe>
+            <iframe src="http://localhost:3000" frame="0" className="chat-container-frame"></iframe>
           </div>
           <div className="event-container col">
             <div className="align-title-center">
-              <h3>Events</h3>
+              <h3>Appointments</h3>
             </div>
             {this.mapEvents()}
           </div>
