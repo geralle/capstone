@@ -60,14 +60,14 @@ class Admin extends Component {
 
   updateSigninStatus(isSignedIn) {
     var authorizeButton = document.getElementById('authorize-button');
-    var signoutButton = document.getElementById('signout-button');
+    // var signoutButton = document.getElementById('signout-button');
     if (isSignedIn) {
       authorizeButton.style.display = 'none';
-      signoutButton.style.display = 'block';
+      // signoutButton.style.display = 'block';
       this.listUpcomingEvents();
     } else {
       authorizeButton.style.display = 'block';
-      signoutButton.style.display = 'none';
+      // signoutButton.style.display = 'none';
     }
   }
 
@@ -106,6 +106,7 @@ class Admin extends Component {
         events={this.state.events}
         signedIn={this.state.signedIn}
         everything={this.state.allUserAppts}
+        adminSignout={() => this.handleSignoutClick()}
       />
     }
   }
@@ -113,8 +114,10 @@ class Admin extends Component {
   render() {
     return (
       <div className="admin-container">
-        <button className="btn btn-warning" id="authorize-button" onClick={()=>this.handleAuthClick()}>Authorize</button>
-        <button className="btn btn-warning" id="signout-button" onClick={()=>this.handleSignoutClick()}>Sign Out</button>
+        <div className="authorize-container">
+          <button className="btn btn-warning" id="authorize-button" onClick={()=>this.handleAuthClick()}>Authorize</button>
+          {/* <button className="btn btn-warning" id="signout-button" onClick={()=>this.handleSignoutClick()}>Sign Out</button> */}
+        </div>
         {this.showDashboard()}
       </div>
     );

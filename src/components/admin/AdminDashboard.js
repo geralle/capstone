@@ -20,7 +20,10 @@ class AdminDashboard extends Component {
       var fullEndDT = new Date(data.end.dateTime)
       var startTime = this.formatTime(fullStartDT)
       var endTime = this.formatTime(fullEndDT)
+      var date = fullStartDT.getMonth() +'/'+ fullStartDT.getDate() +'/'+ fullStartDT.getFullYear()
       return <Events
+                eventDate={date}
+                description={data.description}
                 eventsName={data.summary}
                 eventStartTime={startTime}
                 eventEndTime={endTime}
@@ -93,7 +96,7 @@ class AdminDashboard extends Component {
     return militaryHour
   }
 
-  async createEvent(eventId, start, end, email, description){
+  async createEvent(title, eventId, start, end, email, description){
     console.log('event created')
     var event = {
       "start": {
@@ -103,7 +106,7 @@ class AdminDashboard extends Component {
         "dateTime": end
       },
       "description": description,
-      "summary": "APPOINTMENT APPROVED!",
+      "summary": title,
       "sendNotifications":true,
       "attendees": [
         {
@@ -147,7 +150,6 @@ class AdminDashboard extends Component {
       var apptTime = data.hour + ':' + minute + data.ampm
 
       if(!data.approved){
-        console.log(data)
         var hour = this.militaryFormat(data.hour) + ':' + minute
         var endHour = (this.militaryFormat(data.hour) +1) + ':' + minute
         var eventStart = data.year+'-'+month+'-'+data.day+'T'+ hour +':00-07:00'
@@ -161,7 +163,7 @@ class AdminDashboard extends Component {
                           <p>{apptDate} @{apptTime}</p>
                         </div>
                         <div className="approve-deny-container">
-                          <button className="approval-btn btn btn-success" onClick={()=>this.createEvent(data.id, eventStart, eventEnd, data.email, data.description)}>APPROVE</button>
+                          <button className="approval-btn btn btn-success" onClick={()=>this.createEvent(data.title,data.id, eventStart, eventEnd, data.email, data.description)}>APPROVE</button>
                           <form className="delete-container" method="post" action={deleteApproval}>
                             <input className="form-control" type="hidden" name="id" value={data.id}></input>
                             <button className="delete-btn btn btn-danger">DELETE</button>
@@ -172,24 +174,6 @@ class AdminDashboard extends Component {
                     <div className="description-container">
                       <p>{data.description}</p>
                     </div>
-                    {/* <div className="approval-container col">
-                      <div className="appt-approval-container">
-                        <p className="appt-approval-title">{data.title}</p>
-                        <p className="appt-approval-date col">{apptDate}</p>
-                        <p className="appt-approval-time col">{apptTime}</p>
-                        <input type="hidden" value={eventStart}></input>
-                      </div>
-                      <button className="approval-btn btn btn-success" onClick={()=>this.createEvent(data.id, eventStart, eventEnd, data.email, data.description)}>Approve</button>
-                    </div>
-                    <form className="delete-container col" method="post" action={deleteApproval}>
-                      <div className="form-group">
-                        <input className="form-control" type="hidden" name="id" value={data.id}></input>
-                        <div className="appt-approval-container">
-                          <button className="btn btn-danger">DELETE</button>
-                        </div>
-                      </div>
-                    </form>
-                    <p className="appt-approval-title">{data.description}</p> */}
                   </div>
                 </div>
 
@@ -241,6 +225,7 @@ class AdminDashboard extends Component {
       <div className="">
         <div className="dashboard-title">
           <h1>Admin Dashboard</h1>
+          <button className=" btn btn-warning" id="signout-button" onClick={()=>this.props.adminSignout()}>Sign Out</button>
         </div>
         <div className="dashboard-container">
           <div className="admin-info-container col">

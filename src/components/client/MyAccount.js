@@ -62,7 +62,7 @@ class MyAccount extends Component {
       }
     }
     apptCount.setAttribute('class', 'appointment-count')
-    apptCount.innerText = "Submitted Appointments: " + pendingApprovals
+    apptCount.innerText = "Pending Approvals: " + pendingApprovals
     apptsHistory.append(apptCount)
     for(var i=0;i<apptArr.length;i++){
       if(apptArr[i].approved){
@@ -115,7 +115,7 @@ class MyAccount extends Component {
     return (
       <div className="user-dashboard-container">
         <div className="dashboard-title">
-          <h2>My Account</h2>
+          <h1>My Account</h1>
         </div>
         <div className="my-account-container">
           <div className="appt-history-container col">
