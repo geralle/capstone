@@ -147,19 +147,37 @@ class AdminDashboard extends Component {
       var apptTime = data.hour + ':' + minute + data.ampm
 
       if(!data.approved){
+        console.log(data)
         var hour = this.militaryFormat(data.hour) + ':' + minute
         var endHour = (this.militaryFormat(data.hour) +1) + ':' + minute
         var eventStart = data.year+'-'+month+'-'+data.day+'T'+ hour +':00-07:00'
         var eventEnd = data.year+'-'+month+'-'+data.day+'T'+endHour+':00-07:00'
         return  <div className="approval-item" key={index}>
-                  <div className="approval-delete-container">
-                    <div className="approval-container col">
-                      <div className="form-group">
-                        <div className="appt-approval-container">
-                          <p className="appt-approval-date col">{apptDate}</p>
-                          <p className="appt-approval-time col">{apptTime}</p>
-                          <input type="hidden" value={eventStart}></input>
+                  <div className="approval-delete-container col">
+                    <div className="title-time-container">
+                      <h2>{data.title}</h2>
+                      <div className="time-button-container">
+                        <div className="day-time-container">
+                          <p>{apptDate} @{apptTime}</p>
                         </div>
+                        <div className="approve-deny-container">
+                          <button className="approval-btn btn btn-success" onClick={()=>this.createEvent(data.id, eventStart, eventEnd, data.email, data.description)}>APPROVE</button>
+                          <form className="delete-container" method="post" action={deleteApproval}>
+                            <input className="form-control" type="hidden" name="id" value={data.id}></input>
+                            <button className="delete-btn btn btn-danger">DELETE</button>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="description-container">
+                      <p>{data.description}</p>
+                    </div>
+                    {/* <div className="approval-container col">
+                      <div className="appt-approval-container">
+                        <p className="appt-approval-title">{data.title}</p>
+                        <p className="appt-approval-date col">{apptDate}</p>
+                        <p className="appt-approval-time col">{apptTime}</p>
+                        <input type="hidden" value={eventStart}></input>
                       </div>
                       <button className="approval-btn btn btn-success" onClick={()=>this.createEvent(data.id, eventStart, eventEnd, data.email, data.description)}>Approve</button>
                     </div>
@@ -171,8 +189,11 @@ class AdminDashboard extends Component {
                         </div>
                       </div>
                     </form>
+                    <p className="appt-approval-title">{data.description}</p> */}
                   </div>
                 </div>
+
+
           }
       })
   }
@@ -217,9 +238,9 @@ class AdminDashboard extends Component {
 
   render() {
     return (
-      <div>
+      <div className="">
         <div className="dashboard-title">
-          <h2>Admin Dashboard</h2>
+          <h1>Admin Dashboard</h1>
         </div>
         <div className="dashboard-container">
           <div className="admin-info-container col">
@@ -240,6 +261,7 @@ class AdminDashboard extends Component {
             </div>
             {this.mapEvents()}
           </div>
+
           <div className="approval-container col">
             <div className="align-title-center">
               <h3>Approvals</h3>

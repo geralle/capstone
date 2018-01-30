@@ -1,3 +1,23 @@
+{/* <div className="approval-container col">
+  <div className="appt-approval-container">
+    <p className="appt-approval-title">{data.title}</p>
+    <p className="appt-approval-date col">{apptDate}</p>
+    <p className="appt-approval-time col">{apptTime}</p>
+    <input type="hidden" value={eventStart}></input>
+  </div>
+  <button className="approval-btn btn btn-success" onClick={()=>this.createEvent(data.id, eventStart, eventEnd, data.email, data.description)}>Approve</button>
+</div>
+<form className="delete-container col" method="post" action={deleteApproval}>
+  <div className="form-group">
+    <input className="form-control" type="hidden" name="id" value={data.id}></input>
+    <div className="appt-approval-container">
+      <button className="btn btn-danger">DELETE</button>
+    </div>
+  </div>
+</form>
+<p className="appt-approval-title">{data.description}</p> */}
+
+
 {/* <div className="appt-select">
   <div className="form-group">
     <select className="form-control" name="month" >
