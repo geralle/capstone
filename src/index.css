@@ -5,16 +5,17 @@ html, body {
   height:100%;
 }
 
-p{
+p, span{
   font-family: 'Open Sans', sans-serif;
 }
 
 a{
-  color: #31ccff;
+  color: #55d5ff;
 }
 
 a:hover{
-  color:#59D0DB;
+  color: #5bd6ff;
+  text-decoration: none;
 }
 
 .App-logo {
@@ -93,64 +94,6 @@ a:hover{
   display: flex;
   flex-direction: row;
   margin: 20px 0 0 0;
-}
-
-.calendar-header{
-  display:flex;
-  flex-direction: row;
-  justify-content: center;
-}
-
-.calendar-title{
-  font-family: 'Francois One', sans-serif;
-  margin: 10px;
-}
-
-.calendar-container{
-  width: 100%;
-}
-
-.days{
-  text-align: center;
-}
-
-td{
-  padding: 10px 0 80px 10px;
-  width: 100px;
-  border: 1px solid lightgrey;
-  vertical-align: top;
-}
-
-ul {
-  list-style: none
-}
-
-li::before {
-  content: "•";
-  color: red;
-  display: inline-block;
-  width: 0.5em;
-  margin-left: -2.9em;
-}
-
-/* td .date-num{
-  padding: 0px 0 85px 0px;
-  background-color: orange;
-} */
-
-
-.date-num{
-  font-size: 1.5rem;
-  background-color: orange;
-
-}
-
-.date-day-container ul{
-  margin-bottom: 0;
-}
-
-.date-day-container{
-  background-color: red;
 }
 
 .new-appointment-container{
@@ -248,6 +191,8 @@ li::before {
 .chat-container-frame{
   height: 400px;
   border: none;
+  width: 100%;
+  padding: 0 5px 0 5px;
 }
 
 .appt-select{
@@ -267,7 +212,7 @@ li::before {
   align-items: center;
 }
 
-.dashboard-title h1, .align-title-center h3{
+.dashboard-title h1, .align-title-center h3, .login-form h3{
   font-family: 'Francois One', sans-serif;
 }
 

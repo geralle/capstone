@@ -20,7 +20,7 @@ class AdminDashboard extends Component {
       var fullEndDT = new Date(data.end.dateTime)
       var startTime = this.formatTime(fullStartDT)
       var endTime = this.formatTime(fullEndDT)
-      var date = fullStartDT.getMonth() +'/'+ fullStartDT.getDate() +'/'+ fullStartDT.getFullYear()
+      var date = fullStartDT.getMonth()+1 +'/'+ fullStartDT.getDate() +'/'+ fullStartDT.getFullYear()
       return <Events
                 eventDate={date}
                 description={data.description}
@@ -144,7 +144,7 @@ class AdminDashboard extends Component {
       if(month.length < 2){
         month = '0' + data.month
       }
-      var apptDate = data.month + '/' + data.day + '/' + data.year
+      var apptDate = month + '/' + data.day + '/' + data.year
       var apptTime = data.hour + ':' + minute + data.ampm
 
       if(!data.approved){

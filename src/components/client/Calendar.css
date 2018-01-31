@@ -1,0 +1,49 @@
+.calendar-header{
+  display:flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.calendar-title{
+  font-family: 'Francois One', sans-serif;
+  margin: 10px;
+}
+
+.calendar-container{
+  width: 100%;
+}
+
+.days{
+  text-align: center;
+}
+
+td{
+  padding: 0px 0 85px 0px;
+  width: 100px;
+  border: .5px solid #d8d8d8;
+  vertical-align: top;
+}
+
+td div{
+  padding: 4px 0 0 4px;
+  font-size: 1.10rem;
+  background-color: #ffc107;
+  color: white;
+}
+
+ul {
+  list-style: none;
+  margin: 6px 0 0 0;
+}
+
+li::before {
+  content: "•";
+  color: red;
+  display: inline-block;
+  width: 0.5em;
+  margin-left: -2em;
+}
+
+.date-day-container ul{
+  margin-bottom: 0;
+}

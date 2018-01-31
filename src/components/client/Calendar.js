@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Collapsible from 'react-collapsible';
+import './Calendar.css';
 
 class Calendar extends Component {
   constructor(){

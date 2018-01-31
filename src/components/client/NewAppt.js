@@ -107,7 +107,7 @@ class NewAppt extends Component {
             </div>
           </div>
           <div className="form-group">
-            <input type="text" className="form-control" name="title" placeholder="Service Title" maxlength="50"></input>
+            <input type="text" className="form-control" name="title" placeholder="Service Title" maxLength="50"></input>
           </div>
           <div className="form-group">
             <textarea className="form-control" name="description" placeholder="Description" rows="3"></textarea>
