@@ -170,12 +170,6 @@ class Calendar extends Component {
           collapsible.setAttribute('trigger', 'more')
           var eventContainer = document.createElement('ul')
           var event = document.createElement('li')
-          // <Collapsible trigger="Sunday">
-          //   <p>10:30</p>
-          //   <p>10:30</p>
-          //   <p>10:30</p>
-          //   <p>10:30</p>
-          // </Collapsible>
           calendarRow.setAttribute('className', 'row-'+rowCounter)
           calendarMonth.append(calendarRow)
           reset=false
@@ -274,17 +268,6 @@ class Calendar extends Component {
           <table className="calendar-container">
             <thead>
               <tr>
-                {/* <th className="days">
-                  <Collapsible trigger="Sunday">
-                    <p>{this.state.month}</p>
-                    <p>10:30</p>
-                    <p>10:30</p>
-                    <p>10:30</p>
-                    <p>10:30</p>
-                    <p>10:30</p>
-                  </Collapsible>
-                </th> */}
-
                 <th className="days">Sunday</th>
                 <th className="days">Monday</th>
                 <th className="days">Tuesday</th>

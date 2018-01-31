@@ -55,25 +55,27 @@ class MyAccount extends Component {
     var apptArr = this.state.userAppts.appointments
     if(apptArr != undefined){
       return apptArr.map((data, index)=>{
-        var hour = data.hour
-        var minute = data.minute + ''
-        if(minute.length < 2){
-          minute = "0" + minute
-        }
-        var date = data.month +'/'+ data.day +'/'+ data.year
-        return <div className="approval-delete-container" key={index}>
-          <div className="title-time-container">
-            <h2>{data.title}</h2>
-            <div className="time-button-container">
-              <div className="appt-time">
-                <p>{date} | {hour}:{minute} {data.ampm}</p>
+        if(data.approved){
+          var hour = data.hour
+          var minute = data.minute + ''
+          if(minute.length < 2){
+            minute = "0" + minute
+          }
+          var date = data.month +'/'+ data.day +'/'+ data.year
+          return <div className="approval-delete-container" key={index}>
+            <div className="title-time-container">
+              <h2>{data.title}</h2>
+              <div className="time-button-container">
+                <div className="appt-time">
+                  <p>{date} | {hour}:{minute} {data.ampm}</p>
+                </div>
               </div>
             </div>
+            <div className="description-container">
+              <p>description: {data.description}</p>
+            </div>
           </div>
-          <div className="description-container">
-            <p>description: {data.description}</p>
-          </div>
-        </div>
+        }
       })
     }
   }

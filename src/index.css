@@ -102,6 +102,7 @@ a:hover{
 }
 
 .calendar-title{
+  font-family: 'Francois One', sans-serif;
   margin: 10px;
 }
 
@@ -128,17 +129,37 @@ li::before {
   content: "•";
   color: red;
   display: inline-block;
-  width: 1em;
-  margin-left: -2em;
+  width: 0.5em;
+  margin-left: -2.9em;
 }
 
-td .date-num{
-  padding: 5px 0px 0px 10px;
+/* td .date-num{
+  padding: 0px 0 85px 0px;
   background-color: orange;
+} */
+
+
+.date-num{
+  font-size: 1.5rem;
+  background-color: orange;
+
 }
 
 .date-day-container ul{
   margin-bottom: 0;
+}
+
+.date-day-container{
+  background-color: red;
+}
+
+.new-appointment-container{
+  margin: 0 0 0 0;
+}
+
+.new-appointment-title{
+  font-family: 'Francois One', sans-serif;
+  margin: 11px 0 0px 0;
 }
 
 .about-logins{
@@ -179,10 +200,6 @@ td .date-num{
   display: flex;
   flex-direction: column;
   width: 50%;
-}
-
-.register-btn-submit{
-
 }
 
 .login-input{

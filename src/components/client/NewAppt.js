@@ -43,8 +43,10 @@ class NewAppt extends Component {
   toggleForm(){
     if(this.state.token){
       return <div>
-        <form className="container" method="post" action="https://capstone-be.herokuapp.com/api/appointment/create">
+        <form className="new-appointment-container" method="post" action="https://capstone-be.herokuapp.com/api/appointment/create">
+        <div className="new-appointment-title">
           <h3>Create Appointment</h3>
+        </div>
           <input type="hidden" name="user_id" value={this.state.userInfo.id}></input>
           <input type="hidden" name="f_name" value={this.state.userInfo.f_name}></input>
           <div className="appt-select-container">
@@ -114,7 +116,7 @@ class NewAppt extends Component {
         </form>
       </div>
     }else{
-      return <h2>Login to set an Appointment!</h2>
+      return <h2 className="new-appointment-title">Login to Book an Appointment!</h2>
     }
   }
 
