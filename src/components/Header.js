@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link, Switch, Route } from 'react-router-dom'
-import logo from '../g-logo-thick.png';
+import logo from '../atown-logo.png';
 import Admin from '../components/admin/Admin'
 import Login from '../components/client/Login'
 import Collapsible from 'react-collapsible';
