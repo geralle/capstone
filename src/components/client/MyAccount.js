@@ -124,7 +124,7 @@ class MyAccount extends Component {
             <div className="align-title-center">
               <h3>Chat</h3>
             </div>
-            <iframe src="http://localhost:3000" className="chat-container-frame"></iframe>
+            <iframe src={process.env.PORT} className="chat-container-frame"></iframe>
           </div>
           <div className="account-details-container col">
             {this.displayUserForm()}

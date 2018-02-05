@@ -236,7 +236,7 @@ class AdminDashboard extends Component {
             <div className="align-title-center">
               <h3>Chat</h3>
             </div>
-            <iframe src="http://localhost:3000" frame="0" className="chat-container-frame"></iframe>
+            <iframe src={process.env.PORT} frame="0" className="chat-container-frame"></iframe>
           </div>
           <div className="event-container col">
             <div className="align-title-center">
